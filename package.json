@@ -1,0 +1,16 @@
+{
+  "name": "Stalker-O-Matic",
+  "description": "Keep track of who's in the office",
+  "version": "0.0.0",
+  "author": "Cody Stoltman <particlebanana@gmail.com>",
+  "private": true,
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  },
+  "scripts": {
+
+  }
+}
