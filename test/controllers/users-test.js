@@ -232,7 +232,7 @@ describe('Users', function() {
         makePostReq('/users', {name: 'Test User'}, function(err, res, body) {
           var id = JSON.parse(body)._id;
 
-          makePutReq('/users/' + id, {name: 'Johnny Walker'}, function(err, res, body) {
+          makePutReq('/users/' + id, {name: 'Johnny Walker', location: 'Office'}, function(err, res, body) {
             result = res;
             data = JSON.parse(body);
             done();
@@ -246,6 +246,10 @@ describe('Users', function() {
 
       it('should update user resource', function() {
         data.name.should.equal('Johnny Walker');
+      });
+
+      it('should set location', function() {
+        data.location.should.equal('Office');
       });
     });
 
