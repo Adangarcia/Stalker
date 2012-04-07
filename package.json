@@ -17,5 +17,8 @@
   "scripts": {
     "test": "mocha test"
   },
-  "main": "app.js"
+  "main": "app.js",
+  "engine": {
+    "node": "0.6.x"
+  }
 }
