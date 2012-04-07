@@ -11,4 +11,9 @@ It is an API that can be used with various clients such as Hubot to change a use
 
 ## API Methods
 
-To-DO
+## Users
+- *Get* /users/ - Returns all users
+- *Get* /users/:id - Returns user with id, :id
+- *Post* /users/ - Create new user
+- *Put* /users/:id - Update user with id, :id
+- *Delete* /users/:id - Delete user with id, :id

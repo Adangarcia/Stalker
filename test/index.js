@@ -1,0 +1,1 @@
+exports.Controllers = require('./controllers');
