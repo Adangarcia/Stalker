@@ -1,5 +1,7 @@
 # Stalker-O-Matic
-## Keep track of where people are in the office.
+[![Build Status](https://secure.travis-ci.org/TxSSC/Stalker.png?branch=master)](http://travis-ci.org/TxSSC/Stalker)
+
+## Keep track of who's in the office.
 
 Stalker-O-Matic is a modern day dot-board. It keeps track of who's in the office
 at any given time.
