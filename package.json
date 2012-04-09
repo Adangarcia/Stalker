@@ -7,12 +7,13 @@
   "dependencies": {
     "flatiron": ">= 0.1.16",
     "union": ">= 0.3.0",
-    "resourceful": ">= 0.1.10"
+    "resourceful-redis": ">= 0.0.1"
   },
   "devDependencies": {
     "mocha": ">= 1.0.1",
     "should": ">= 0.6.0",
-    "request": ">= 2.9"
+    "request": ">= 2.9.x",
+    "redis": ">= 0.7.x"
   },
   "scripts": {
     "test": "mocha test"
