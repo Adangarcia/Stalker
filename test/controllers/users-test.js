@@ -6,8 +6,16 @@ var should = require('should'),
     request = require('request'),
     flatiron = require('flatiron'),
     users = require('../../lib/controllers/users'),
+    redis = require('redis');
     app = flatiron.app;
 
+beforeEach(function(done) {
+  var conn = redis.createClient();
+  conn.FLUSHDB(function() {
+    conn.SET('resourceful:index', "0");
+    done();
+  });
+});
 
 app.use(flatiron.plugins.http);
 app.router.path(/users/i, users);
