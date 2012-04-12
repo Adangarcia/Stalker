@@ -260,6 +260,31 @@ describe('Users', function() {
       });
     });
 
+    // Test updating location
+    describe('empty location', function() {
+
+      before(function(done) {
+        // add a user to ensure a good ID
+        makePostReq('/users', {name: 'Test User'}, function(err, res, body) {
+          var id = JSON.parse(body)._id;
+
+          makePutReq('/users/' + id, {location: ''}, function(err, res, body) {
+            result = res;
+            data = JSON.parse(body);
+            done();
+          });
+        });
+      });
+
+      it('should return a 200 status code', function() {
+        result.statusCode.should.equal(200);
+      });
+
+      it('should clear location', function() {
+        data.location.should.equal('');
+      });
+    });
+
   });
 
 
