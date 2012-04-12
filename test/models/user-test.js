@@ -84,4 +84,14 @@ describe('hooks', function() {
     });
   });
 
+  it('should return successfully on non-validated properties', function(done) {
+    User.create({name: 'Suzy'}, function(err, obj) {
+      obj.update({ location: 'office' }, function(err, instance) {
+        should.not.exist(err);
+        instance.should.be.an.instanceof(User);
+        done();
+      });
+    });
+  });
+
 });
