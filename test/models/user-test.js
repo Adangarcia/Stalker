@@ -4,84 +4,84 @@
 
 var should = require('should'),
     User = require('../../lib/models/user').User,
-    redis = require('redis');
+    redis = require('redis'),
+    conn = redis.createClient();
+
 
 beforeEach(function(done) {
-  var conn = redis.createClient();
-  conn.FLUSHDB(function() {
-    done();
-  });
+  conn.FLUSHDB(done);
 });
 
 
-/* Seed DB with values */
-function seed(objects, callback) {
-  var len = objects.length,
-      users = [],
-      i = 0;
+describe('sanitize', function() {
 
-  objects.forEach(function(obj) {
-    addUser(obj, function(err, user) {
-      users.push(user);
-      i++;
-      if(i === len) return callback(users);
+  beforeEach(function(done) {
+    var self = this;
+
+    User.create({name: 'Bob'}, function(err, user) {
+      if(err) return done(err);
+      self.user = user;
+      done();
     });
   });
-}
 
-function addUser(user, callback) {
-  User.create(user, callback);
-}
+  describe('on .create()', function() {
+    it('should lowercase name on create', function() {
+      var self = this.user;
+      self.name.should.equal('bob');
+    });
+  });
 
-
-describe('User', function() {
-
-  /* Hooks */
-
-  describe('hooks', function() {
-
-    describe('save', function() {
-
-      it('should lowercase name', function(done) {
-        User.create({ name: 'Test User' }, function(err, user) {
-          user.name.should.equal('test user');
-          done();
-        });
-      });
-
-      it('should check uniqueness of name', function(done) {
-        seed([{name: "Test User"}, {name: "Another User"}], function() {
-          User.create({ name: 'Test User' }, function(err, user) {
-            should.exist(err);
-            err.should.be.an.instanceof(Error);
-            done();
-          });
-        });
+  describe('on .update()', function() {
+    it('should lowercase name on update', function(done) {
+      var self = this.user;
+      this.user.update({name: 'Mike'}, function(err, obj) {
+        should.not.exist(err);
+        self.name.should.equal('mike');
+        done();
       });
     });
+  });
+});
 
-    describe('update', function() {
+/* Hooks */
 
-      it('should lowercase name', function(done) {
-        User.create({ name: 'Test User' }, function(err, user) {
-          user.update({ name: 'Test Update'}, function(err) {
-            user.name.should.equal('test update');
-            done();
-          });
-        });
-      });
+describe('hooks', function() {
 
-      it('should check uniqueness of name', function(done) {
-        seed([{name: "Test User"}, {name: "Another User"}], function(users) {
-          users[0].update({ name: 'Another User' }, function(err) {
-            should.exist(err);
-            err.should.be.an.instanceof(Error);
-            done();
-          });
-        });
+  beforeEach(function(done) {
+    User.create({name: 'Bob'}, function(err, user) {
+      if(err) return done(err);
+      done();
+    });
+  });
+
+  it('should check uniqueness of name on .create()', function(done) {
+    User.create({name: 'Bob'}, function(err, obj) {
+      should.exist(err);
+      err.should.be.an.instanceof(Error);
+      done();
+    });
+  });
+
+  it('should check uniqueness of name on .save()', function(done) {
+    User.create({name: 'Suzy'}, function(err, obj) {
+      obj.name = "Bob";
+      obj.save(function(err, user) {
+        should.exist(err);
+        err.should.be.an.instanceof(Error);
+        done();
       });
     });
+  });
 
+  it('should check uniqueness of name on .update()', function(done) {
+    User.create({name: 'Suzy'}, function(err, obj) {
+      obj.update({ name: 'Bob' }, function(err) {
+        should.exist(err);
+        err.should.be.an.instanceof(Error);
+        done();
+      });
+    });
   });
 
 });

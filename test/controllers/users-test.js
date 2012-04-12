@@ -6,13 +6,12 @@ var should = require('should'),
     request = require('request'),
     flatiron = require('flatiron'),
     users = require('../../lib/controllers/users'),
-    redis = require('redis');
+    redis = require('redis'),
     app = flatiron.app;
 
 beforeEach(function(done) {
   var conn = redis.createClient();
   conn.FLUSHDB(function() {
-    conn.SET('resourceful:index', "0");
     done();
   });
 });
@@ -110,7 +109,7 @@ describe('Users', function() {
       });
 
       it('should return a user object', function() {
-        data.name.should.equal('Test User');
+        data.name.should.equal('test user');
         should.exist(data.avatar);
       });
     });
@@ -174,7 +173,7 @@ describe('Users', function() {
       });
 
       it('should return a user object', function() {
-        data.name.should.equal('Test User');
+        data.name.should.equal('test user');
         should.exist(data.avatar);
       });
     });
@@ -253,7 +252,7 @@ describe('Users', function() {
       });
 
       it('should update user resource', function() {
-        data.name.should.equal('Johnny Walker');
+        data.name.should.equal('johnny walker');
       });
 
       it('should set location', function() {
@@ -294,4 +293,3 @@ describe('Users', function() {
   });
 
 });
-
