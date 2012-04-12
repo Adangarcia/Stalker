@@ -8,4 +8,4 @@ app.use(flatiron.plugins.http);
 app.router.path(/users/i, controllers.User);
 
 // Start the app
-app.start(3000);
+app.start(process.env.STALKER_PORT || 3000);

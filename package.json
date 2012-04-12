@@ -16,6 +16,7 @@
     "redis": ">= 0.7.x"
   },
   "scripts": {
+    "start": "node app",
     "test": "mocha test"
   },
   "main": "app.js",
