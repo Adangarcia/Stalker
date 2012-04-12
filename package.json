@@ -7,7 +7,7 @@
   "dependencies": {
     "flatiron": ">= 0.1.16",
     "union": ">= 0.3.0",
-    "resourceful-redis": ">= 0.0.1"
+    "resourceful-redis": ">= 0.1.x"
   },
   "devDependencies": {
     "mocha": ">= 1.0.1",
