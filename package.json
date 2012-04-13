@@ -7,7 +7,8 @@
   "dependencies": {
     "flatiron": ">= 0.1.16",
     "union": ">= 0.3.0",
-    "resourceful-redis": ">= 0.1.x"
+    "resourceful-redis": ">= 0.1.x",
+    "node-redis-events": "git://github.com/vanetix/node-redis-events.git"
   },
   "devDependencies": {
     "mocha": ">= 1.0.1",
