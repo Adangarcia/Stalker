@@ -3,10 +3,13 @@
  */
 
 var should = require('should'),
-    User = require('../../lib/models/user').User,
     redis = require('redis'),
+    pubEvents = require('node-redis-events').Publisher,
+    events = require('events').EventEmitter,
     conn = redis.createClient();
 
+var eventEmitter = new events(),
+    User = require('../../lib/models/user')(eventEmitter);
 
 beforeEach(function(done) {
   conn.FLUSHDB(done);
@@ -14,30 +17,27 @@ beforeEach(function(done) {
 
 
 describe('sanitize', function() {
+  var obj;
 
   beforeEach(function(done) {
-    var self = this;
-
     User.create({name: 'Bob'}, function(err, user) {
       if(err) return done(err);
-      self.user = user;
+      obj = user;
       done();
     });
   });
 
   describe('on .create()', function() {
     it('should lowercase name on create', function() {
-      var self = this.user;
-      self.name.should.equal('bob');
+      obj.name.should.equal('bob');
     });
   });
 
   describe('on .update()', function() {
     it('should lowercase name on update', function(done) {
-      var self = this.user;
-      this.user.update({name: 'Mike'}, function(err, obj) {
+      obj.update({name: 'Mike'}, function(err, u) {
         should.not.exist(err);
-        self.name.should.equal('mike');
+        u.name.should.equal('mike');
         done();
       });
     });

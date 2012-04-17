@@ -5,9 +5,32 @@
 var should = require('should'),
     request = require('request'),
     flatiron = require('flatiron'),
-    users = require('../../lib/controllers/users'),
+    controllers = require('../../lib/controllers'),
     redis = require('redis'),
+    events = require('events').EventEmitter,
+    pubEvents = require('node-redis-events').Publisher,
+    url = require('url'),
     app = flatiron.app;
+
+app.use(flatiron.plugins.http);
+var eventEmitter = new events();
+var model_events = [
+  'user:save',
+  'user:update'
+];
+
+var redisString = process.env.REDIS_URI || "redis://127.0.0.1:6379",
+    redisURI = url.parse(redisString, true);
+
+var pubSubConfig = {
+  redis: redis.createClient(parseInt(redisURI.port, 10), redisURI.hostname),
+  emitter: eventEmitter,
+  namespace: 'stalker'
+};
+var publisher = new pubEvents(pubSubConfig, model_events);
+app.controllers = controllers(eventEmitter);
+app.router.path(/users/i, app.controllers.User);
+app.start(9090);
 
 beforeEach(function(done) {
   var conn = redis.createClient();
@@ -15,10 +38,6 @@ beforeEach(function(done) {
     done();
   });
 });
-
-app.use(flatiron.plugins.http);
-app.router.path(/users/i, users);
-app.start(9090);
 
 
 /*
@@ -239,9 +258,9 @@ describe('Users', function() {
         makePostReq('/users', {name: 'Test User'}, function(err, res, body) {
           var id = JSON.parse(body)._id;
 
-          makePutReq('/users/' + id, {name: 'Johnny Walker', location: 'Office'}, function(err, res, body) {
+          makePutReq('/users/' + id, {name: 'Johnny Walker', location: 'Office'}, function(err, res, obj) {
             result = res;
-            data = JSON.parse(body);
+            data = JSON.parse(obj);
             done();
           });
         });
