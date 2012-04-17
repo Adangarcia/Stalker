@@ -9,6 +9,11 @@ var flatiron = require('flatiron'),
 app.use(flatiron.plugins.http);
 
 /**
+ * CORS header
+ */
+app.http.headers['Access-Control-Allow-Origin'] = '*';
+
+/**
  * Use Node-Redis-Events to publish
  * events to subscribers
  */
