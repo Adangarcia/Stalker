@@ -1,0 +1,8 @@
+/**
+ * Authentication routes
+ */
+
+module.exports = {
+
+
+};
