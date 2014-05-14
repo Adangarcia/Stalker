@@ -11,7 +11,8 @@
     "passport-txssc": "^0.1.1",
     "sequelize": "^2.0.0-dev11",
     "method-override": "^1.0.0",
-    "body-parser": "^1.2.0"
+    "body-parser": "^1.2.0",
+    "mysql": "^2.2.0"
   },
   "devDependencies": {
     "should": "^3.3.1",
