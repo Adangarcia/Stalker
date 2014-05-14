@@ -43,7 +43,7 @@ if(env == 'production') {
   database = 'stalker_development';
 
   options.dialect = 'sqlite';
-  options.storage = '/tmp/database.sqlite';
+  options.storage = '/tmp/stalker_test.sqlite';
 }
 
 sequelize = new Sequelize(database, user, password, options);

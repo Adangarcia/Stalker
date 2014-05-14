@@ -1,30 +1,61 @@
-var url = require('url'),
-    redis = require('redis'),
-    flatiron = require('flatiron'),
-    app = flatiron.app;
-    Emitter = require('node-redis-events'),
-    controllers = require('./lib/controllers');
-
-app.use(flatiron.plugins.http);
+var express = require('express'),
+    controllers = require('controllers');
 
 /**
- * CORS header
+ * Base configuration
  */
 
-app.http.headers['Access-Control-Allow-Origin'] = '*';
+app.configure(function() {
+  // Configure settings
+  app.set('port', process.env.STALKER_PORT || 3000);
+  app.set('api token', process.env.API_TOKEN || 'please');
+  app.set('passport key', process.env.CONSUMER_KEY);
+  app.set('passport secret', process.env.CONSUMER_SECRET);
+  app.get('passport host', 'localhost');
 
-/**
- * configure event emitter namespace
- */
-
-var emitter = new Emitter({
-  namespace: 'stalker'
+  // Configure middleware
+  app.use(express.methodOverride());
+  app.use(app.router);
 });
 
-// Route request to correct controller
-app.controllers = controllers(emitter);
+app.configure('development', function() {
+  app.use(express.logger('dev'));
+});
 
-app.router.path(/users/i, app.controllers.User);
+app.configure('production', function() {
+  // Configure settings
+  app.get('passport host', process.env.PASSPORT_HOST);
 
-// Start the app
-app.start(process.env.STALKER_PORT || 3000);
+  // Configure middleware
+  app.use(express.logger('short'));
+});
+
+/**
+ * Helper function for mounting routes
+ *
+ * @param {Object|Function} handler
+ * @param {String} route optional
+ */
+
+app.mount = function(handler, route) {
+  route = route || '';
+
+  for(var k in handler) {
+    if(typeof handler[k] === 'function') {
+      this[k](route, handler[k]);
+    } else {
+      this.mount(handler[k], route + k);
+    }
+  }
+};
+
+// Mount all controllers
+app.mount(controllers);
+
+/**
+ * Start the server
+ */
+
+http.createServer(app).listen(app.get('port'), function() {
+  console.log("Stalker started on port: " + app.get('port'));
+});

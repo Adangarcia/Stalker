@@ -1,0 +1,21 @@
+{
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "stalker_test",
+    "dialect": "sqlite"
+  },
+  "development": {
+    "username": "root",
+    "password": "root",
+    "database": "stalker_development",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "stalker",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
