@@ -4,6 +4,7 @@
   "version": "2.0.0",
   "author": "Cody Stoltman <particlebanana@gmail.com>",
   "private": true,
+  "repository": "git://github.com/TxSSC/Stalker",
   "dependencies": {
     "express": "^4.0.0",
     "passport": "^0.2.0",
