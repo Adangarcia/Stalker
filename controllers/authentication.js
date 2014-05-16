@@ -13,7 +13,7 @@ module.exports = {
    * @param {http.Response} res
    */
 
-  login: passport.authorize('txssc', { failureRedirect: '/'}),
+  login: passport.authenticate('txssc'),
 
   /**
    * Logout route
@@ -34,8 +34,7 @@ module.exports = {
    * @param {http.Response} res
    */
 
-  authenticate: passport.authorize('txssc', { failureRedirect: '/' }),
-  function(req, res) { });
-  }
+  authenticate: passport.authenticate('txssc', { successRedirect: '/',
+                                              failureRedirect: '/' })
 
 };
