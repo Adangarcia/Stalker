@@ -1,5 +1,6 @@
 var controllers = {
   API: require('./api'),
+  Pages: require('./pages'),
   Authentication: require('./authentication')
 };
 
@@ -15,6 +16,14 @@ module.exports = function(app) {
 
   return {
     '/api': controllers.API(app),
+
+    '/': {
+      get: controllers.Pages.index
+    },
+
+    '/login': {
+      get: controllers.Pages.login
+    },
 
     '/auth': {
       '/login': {
