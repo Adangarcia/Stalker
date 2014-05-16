@@ -13,21 +13,19 @@ var controllers = {
 module.exports = function(app) {
 
   /**
-   * Authentication helper
+   * Ensure the current user has permissions for a specific resource
    *
    * @param {http.Request} req
    * @param {http.Response} res
    * @param {Function} next
    */
 
-  function authenticate(req, res, next) {
-    var token = req.headers['Authorization'];
-
-    if(token && token === app.get('api token')) {
-      return next();
+  function authorize(req, res, next) {
+    if(req.user.role === 'member' && req.method.match(/POST|PUT|DELETE/)) {
+      return res.json(403, { error: 'unauthorized' });
     }
 
-    return res.json(401, { error: 'unauthorized' });
+    return next();
   }
 
   /**
@@ -39,7 +37,7 @@ module.exports = function(app) {
 
   return {
     '/*': {
-      all: authenticate
+      all: authorize
     },
 
     '/users': {
@@ -49,18 +47,18 @@ module.exports = function(app) {
       '/:user_id': {
         get: controllers.Users.get,
         put: controllers.Users.update,
-        del: controllers.Users.destroy
+        delete: controllers.Users.destroy
       }
     },
 
-    'divisions': {
+    '/divisions': {
       get: controllers.Divisions.index,
       post: controllers.Divisions.create,
 
       '/:division_id': {
         get: controllers.Divisions.get,
         put: controllers.Divisions.update,
-        del: controllers.Divisions.destroy
+        delete: controllers.Divisions.destroy
       }
     }
   };
