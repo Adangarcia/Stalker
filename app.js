@@ -1,34 +1,60 @@
-var express = require('express'),
-    controllers = require('controllers');
+var lib = require('./lib'),
+    http = require('http'),
+    morgan = require('morgan'),
+    express = require('express'),
+    controllers = require('./controllers'),
+    methodOverride = require('method-override');
 
 /**
- * Base configuration
+ * Define base app and export it for testability
  */
 
-app.configure(function() {
-  // Configure settings
-  app.set('port', process.env.STALKER_PORT || 3000);
-  app.set('api token', process.env.API_TOKEN || 'please');
-  app.set('passport key', process.env.CONSUMER_KEY);
-  app.set('passport secret', process.env.CONSUMER_SECRET);
-  app.get('passport host', 'localhost');
+var app = module.exports = express();
 
-  // Configure middleware
-  app.use(express.methodOverride());
-  app.use(app.router);
-});
+/**
+ * Configure settings
+ */
 
-app.configure('development', function() {
-  app.use(express.logger('dev'));
-});
+app.set('view engine', 'jade');
+app.set('port', process.env.STALKER_PORT || 3000);
+app.set('api token', process.env.API_TOKEN || 'please');
+app.set('passport key', process.env.CONSUMER_KEY);
+app.set('passport secret', process.env.CONSUMER_SECRET);
+app.set('passport host', 'localhost');
 
-app.configure('production', function() {
+/**
+ * Configure passport strategy
+ */
+
+lib.middleware.passport(app);
+
+/**
+ * Configure middleware
+ */
+
+app.use(methodOverride());
+app.use(express.static(__dirname + '/public'));
+app.use('/api|/', lib.middleware.authenticate(app));
+
+/**
+ * Development only settings
+ */
+
+if(app.get('env') === 'development') {
+  app.use(morgan('dev'));
+}
+
+/**
+ * Production only settings
+ */
+
+if(app.get('env') === 'production') {
   // Configure settings
   app.get('passport host', process.env.PASSPORT_HOST);
 
   // Configure middleware
-  app.use(express.logger('short'));
-});
+  app.use(morgan('short'));
+}
 
 /**
  * Helper function for mounting routes
@@ -50,12 +76,14 @@ app.mount = function(handler, route) {
 };
 
 // Mount all controllers
-app.mount(controllers);
+app.mount(controllers(app));
 
 /**
- * Start the server
+ * Start the server if script was started directly
  */
 
-http.createServer(app).listen(app.get('port'), function() {
-  console.log("Stalker started on port: " + app.get('port'));
-});
+if(!module.parent) {
+  http.createServer(app).listen(app.get('port'), function() {
+    console.log("Stalker started on port: " + app.get('port'));
+  });
+}
