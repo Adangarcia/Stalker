@@ -13,7 +13,8 @@ var controllers = {
 module.exports = function(app) {
 
   /**
-   * Ensure the current user has permissions for a specific resource
+   * Ensure the current user has permissions for a specific resource,
+   * magic tokens just continue through, since you know they're magic.
    *
    * @param {http.Request} req
    * @param {http.Response} res
@@ -21,7 +22,7 @@ module.exports = function(app) {
    */
 
   function authorize(req, res, next) {
-    if(req.user.role === 'member' && req.method.match(/POST|PUT|DELETE/)) {
+    if(req.user && req.user.role === 'member' && req.method.match(/POST|PUT|DELETE/)) {
       return res.json(403, { error: 'unauthorized' });
     }
 
