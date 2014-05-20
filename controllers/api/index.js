@@ -43,7 +43,6 @@ module.exports = function(app) {
 
     '/users': {
       get: controllers.Users.index,
-      post: controllers.Users.create,
 
       '/:user_id': {
         get: controllers.Users.get,

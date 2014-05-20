@@ -42,20 +42,6 @@ module.exports = {
   },
 
   /**
-   * Create route - create a new user
-   *
-   * @param {http.Request} req
-   * @param {http.Response} res
-   */
-
-  create: function(req, res) {
-    User.create(req.body).complete(function(err, user) {
-      if(err) return res.json(500, { error: err });
-      return res.json(201, user);
-    });
-  },
-
-  /**
    * Get route - return specific user
    *
    * @param {http.Request} req
