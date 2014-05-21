@@ -11,8 +11,6 @@ module.exports = function(sequelize, Types) {
    */
 
   return sequelize.define('Division', {
-    token: Types.STRING,
-
     name: {
       type: Types.STRING,
       validate: {
