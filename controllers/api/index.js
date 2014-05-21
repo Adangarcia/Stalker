@@ -22,7 +22,8 @@ module.exports = function(app) {
    */
 
   function authorize(req, res, next) {
-    if(req.user && req.user.role === 'member' && req.method.match(/POST|PUT|DELETE/)) {
+    if(req.user && req.user.role === 'member' &&
+      req.method.match(/POST|PUT|DELETE/)) {
       return res.json(403, { error: 'unauthorized' });
     }
 
