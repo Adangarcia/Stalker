@@ -64,7 +64,7 @@ module.exports = {
   update: function(req, res) {
     var user = req.data.user;
 
-    user.update(req.body).complete(function(err, user) {
+    user.updateAttributes(req.body).complete(function(err, user) {
       if(err) return res.json(500, { error: err });
       return res.json(user);
     });

@@ -77,7 +77,7 @@ module.exports = {
   update: function(req, res) {
     var division = req.data.division;
 
-    division.update(req.body).complete(function(err, user) {
+    division.updateAttributes(req.body).complete(function(err, user) {
       if(err) return res.json(500, { error: err });
       return res.json(user);
     });
