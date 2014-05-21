@@ -2,6 +2,7 @@ var lib = require('./lib'),
     http = require('http'),
     morgan = require('morgan'),
     express = require('express'),
+    bodyParser = require('body-parser'),
     controllers = require('./controllers'),
     methodOverride = require('method-override');
 
@@ -33,8 +34,9 @@ lib.middleware.passport(app);
  */
 
 app.use(methodOverride());
+app.use(bodyParser());
 app.use(express.static(__dirname + '/public'));
-app.use('/api|/', lib.middleware.authenticate(app));
+app.use('/api|\//', lib.middleware.authenticate(app));
 
 /**
  * Development only settings
@@ -75,7 +77,10 @@ app.mount = function(handler, route) {
   }
 };
 
-// Mount all controllers
+/**
+ * Mount all controllers using our helper
+ */
+
 app.mount(controllers(app));
 
 /**
