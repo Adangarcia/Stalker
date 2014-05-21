@@ -22,7 +22,7 @@ module.exports = {
       if(!user) return res.json(404, { error: 'not found' });
 
       req.data = req.data || {};
-      req.user = user;
+      req.data.user = user;
       return next();
     });
   },

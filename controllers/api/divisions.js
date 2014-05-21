@@ -21,7 +21,7 @@ module.exports = {
       if(!division) return res.json(404, { error: 'not found' });
 
       req.data = req.data || {};
-      req.division = division;
+      req.data.division = division;
       return next();
     });
   },
