@@ -1,2 +1,7 @@
+.tmp
 node_modules
+client/vendor
 config/config.json
+public/assets/*
+!public/assets/images
+!public/assets/fonts

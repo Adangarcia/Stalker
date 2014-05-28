@@ -2,9 +2,10 @@ doctype html
 html(lang="en")
   head
     title= "Stalker"
-    link(rel="stylesheet", type="text/css", src="/assets/stylesheets/bundle.css")
-    script(src="/assets/javascript/bundle.js")
+    meta(name="authorization", content="#{token}")
+    link(rel="stylesheet", src="/assets/stalker.css")
+    script(src="/assets/vendor.js")
+    script(src="/assets/templates.js")
+    script(src="/assets/stalker.js")
 
   body
-    .login
-      a(href="/auth/login") Login
