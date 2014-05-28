@@ -34,7 +34,8 @@ module.exports = {
    * @param {http.Response} res
    */
 
-  authenticate: passport.authenticate('txssc', { successRedirect: '/',
-                                              failureRedirect: '/' })
-
+  authenticate: passport.authenticate('txssc', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  })
 };

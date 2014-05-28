@@ -2,8 +2,11 @@ var lib = require('./lib'),
     http = require('http'),
     morgan = require('morgan'),
     express = require('express'),
+    passport = require('passport'),
     bodyParser = require('body-parser'),
     controllers = require('./controllers'),
+    cookieParser = require('cookie-parser'),
+    expressSession = require('express-session'),
     methodOverride = require('method-override');
 
 /**
@@ -19,9 +22,10 @@ var app = module.exports = express();
 app.set('view engine', 'jade');
 app.set('port', process.env.STALKER_PORT || 3000);
 app.set('api token', process.env.API_TOKEN || 'please');
+app.set('session secret', process.env.SESSION_SECRET || 'dirty secret');
 app.set('passport key', process.env.CONSUMER_KEY);
 app.set('passport secret', process.env.CONSUMER_SECRET);
-app.set('passport host', 'localhost');
+app.set('passport host', 'localhost:' + app.get('port'));
 
 /**
  * Configure passport strategy
@@ -33,9 +37,13 @@ lib.middleware.passport(app);
  * Configure middleware
  */
 
-app.use(methodOverride());
-app.use(bodyParser());
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser());
+app.use(methodOverride());
+app.use(cookieParser());
+app.use(expressSession({ secret: app.get('session secret') }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/api|\//', lib.middleware.authenticate(app));
 
 /**

@@ -114,30 +114,31 @@ module.exports = function(sequelize, Types) {
        *  - sets the user's authentication token to the new token
        *
        * Example:
-       *   User.authorize({ username: 'waldo', name: 'Waldo' }).complete(...)
+       *   User.authorize({ username: 'waldo', name: 'Waldo' }, 'abc123').complete(...)
        *
-       * @param {Object} user attributes of the user
+       * @param {Object} profile attributes of the user
+       * @param {String} token oauth auth token
        * @return {Sequelize.Utils.CustomEventEmitter}
        */
 
-      authorize: function(user) {
-        var attrs = {},
-            User = this;
+      authorize: function(profile, token) {
+        var User = this;
+        var attrs = {
+          token: token
+        };
 
-        ['name', 'role',
-         'avatar', 'token'].forEach(function(attr) {
-          if(typeof user[attr] !== 'undefined' && user[attr].length) {
-            attrs[attr] = user[attr];
-          }
-        });
+        // Update attributes
+        if(profile.role) attrs.role = profile.role;
+        if(profile.avatar) attrs.avatar = profile.avatar;
+        if(profile.displayName) attrs.name = profile.displayName;
 
         return new Emitter(function(emitter) {
           User
-            .find({ where: { username: user.username } })
+            .find({ where: { username: profile.username } })
             .proxy(emitter, { events: ['error'] })
             .success(function(user) {
               if(!user) {
-                attrs.username = user.username;
+                attrs.username = profile.username;
 
                 User
                   .create(attrs)
@@ -147,14 +148,14 @@ module.exports = function(sequelize, Types) {
                   });
               } else {
                 user
-                  .update(attrs)
+                  .updateAttributes(attrs)
                   .proxy(emitter, { events: ['error'] })
                   .success(function(user) {
                     return emitter.emit('success', user);
                   });
               }
             });
-        });
+        }).run();
       }
 
     }
