@@ -92,13 +92,14 @@ module.exports = function(sequelize, Types) {
        */
 
       toSession: function() {
-        var attrs = this.toJSON();
+        var attrs = utils.clone(this.values);
 
         return {
           name: attrs.name,
           username: attrs.username,
           avatar: attrs.avatar,
-          role: attrs.role
+          role: attrs.role,
+          token: attrs.token
         };
       }
 
