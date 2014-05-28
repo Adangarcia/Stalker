@@ -2,11 +2,18 @@ doctype html
 html(lang="en")
   head
     title= "Stalker"
-    link(rel="stylesheet", type="text/css", src="/assets/stylesheets/bundle.css")
+    link(rel="stylesheet", href="/assets/stalker.css")
 
   body
-    .container
-      h1 Stalker
+    header
+      nav.top-bar
+        a(href="http://txssc.txstate.edu")
+          h1.logo-white TxSSC
 
-      .login
-        a(href="/auth/login") Login with TxSSC
+    .row
+      .large-6.small-12.large-centered.columns
+        h1.logo TxSSC
+
+        p Stalker is a status board for multi-division organizations. <a href="http://txssc.txstate.edu">TxSSC</a>.
+
+        a.button.large.expand(href='/auth/login') Login with TxSSC
