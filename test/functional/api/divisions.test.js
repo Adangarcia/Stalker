@@ -77,6 +77,18 @@ describe('`/api/divisions`', function() {
             return done(err);
           });
       });
+
+      it('should be queryable', function(done) {
+        request(app)
+          .get('/api/divisions')
+          .query({ name: 'Sith Lords' })
+          .set('Authorization', 'please')
+          .end(function(err, res) {
+            res.body.should.have.length(1);
+            res.body[0].should.have.property('name', 'Sith Lords');
+            return done(err);
+          });
+      });
     });
   });
 

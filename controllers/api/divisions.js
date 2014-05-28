@@ -34,7 +34,7 @@ module.exports = {
    */
 
   index: function(req, res) {
-    Division.findAll().complete(function(err, divisions) {
+    Division.findAll({ where: req.query }).complete(function(err, divisions) {
       if(err) return res.json(500, { error: err });
       return res.json(200, divisions);
     });

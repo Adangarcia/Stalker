@@ -79,6 +79,18 @@ describe('`/api/users`', function() {
             return done(err);
           });
       });
+
+      it('should be queryable', function(done) {
+        request(app)
+          .get('/api/users')
+          .query({ username: 'quigon' })
+          .set('Authorization', 'please')
+          .end(function(err, res) {
+            res.body.should.have.length(1);
+            res.body[0].should.have.property('username', 'quigon');
+            return done(err);
+          });
+      });
     });
   });
 

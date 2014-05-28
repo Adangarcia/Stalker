@@ -35,7 +35,7 @@ module.exports = {
    */
 
   index: function(req, res) {
-    User.findAll({ include: [ Division ] }).complete(function(err, users) {
+    User.findAll({ where: req.query, include: [ Division ] }).complete(function(err, users) {
       if(err) return res.json(500, { error: err });
       return res.json(200, users);
     });
