@@ -55,7 +55,7 @@ module.exports = function(grunt) {
     concat: {
       source: {
         files: {
-          '.tmp/stalker.concat.js': [
+          '.tmp/stalker.js': [
             '.tmp/**/*.js',
             '!.tmp/templates.js'
           ]
@@ -64,11 +64,10 @@ module.exports = function(grunt) {
       vendor: {
         files: {
           '.tmp/vendor.js': [
-            'client/vendor/jquery/jquery.js',
+            'client/vendor/jquery/dist/jquery.js',
             'client/vendor/handlebars/handlebars.js',
             'client/vendor/ember/ember.js',
-            'client/vendor/ember-data/ember-data.js',
-            'client/vendor/ember-loader/loader.js'
+            'client/vendor/ember-data/ember-data.js'
           ]
         }
       }
@@ -79,7 +78,11 @@ module.exports = function(grunt) {
       development: {
         expand: true,
         cwd: '.tmp/',
-        src: ['stalker.js', 'vendor.js', 'templates.js'],
+        src: [
+          'stalker.js',
+          'vendor.js',
+          'templates.js'
+        ],
         dest: 'public/assets/'
       }
     },
@@ -87,31 +90,24 @@ module.exports = function(grunt) {
     // Uglify javascript source
     uglify: {
       production: {
-        src: ['.tmp/stalker.js', '.tmp/vendor.js', '.tmp/templates.js'],
+        src: [
+          '.tmp/stalker.js',
+          '.tmp/vendor.js',
+          '.tmp/templates.js'
+        ],
         dest: 'public/assets'
       }
     },
 
-    // Compile ES6 to ES5
-    transpile: {
-      stalker: {
-        type: 'amd',
-        files: [{
-          expand: true,
-          cwd: 'client/',
-          src: ['**/*.js', '!vendor/**'],
-          dest: '.tmp/'
-        }]
-      }
-    },
-
-    browser: {
+    // Run includes to build all modules
+    includes: {
       stalker: {
         options: {
-          barename: 'application',
-          namespace: 'Stalker'
+          includePath: 'client/',
+          filenameSuffix: '.js',
+          includeRegexp: /(\s*)\/\/\s+import\s+([^$\s]+)/
         },
-        src: '.tmp/stalker.concat.js',
+        src: 'client/application.js',
         dest: '.tmp/stalker.js'
       }
     },
@@ -125,31 +121,10 @@ module.exports = function(grunt) {
     }
   });
 
-  // Task from: http://www.thomasboyt.com/2013/06/21/es6-module-transpiler
-  grunt.registerMultiTask('browser', "Export a module to the window", function() {
-    var opts = this.options();
-    this.files.forEach(function(f) {
-      var output = ["(function(globals) {"];
-
-      output.push.apply(output, f.src.map(grunt.file.read));
-
-      output.push(grunt.template.process(
-        'window.<%= namespace %> = requireModule("<%= barename %>");', {
-        data: {
-          namespace: opts.namespace,
-          barename: opts.barename
-        }
-      }));
-      output.push('})(window);');
-
-      grunt.file.write(f.dest, grunt.template.process(output.join("\n")));
-    });
-  });
-
   // Task definitions
-  grunt.registerTask('production', ['build', 'less:production', 'ugilify', 'clean:tmp']);
-  grunt.registerTask('development', ['build', 'less:development', 'copy']);
-  grunt.registerTask('build', ['jshint', 'clean', 'emberTemplates', 'transpile', 'concat', 'browser']);
+  grunt.registerTask('production', ['build', 'less:production', 'uglify', 'clean:tmp']);
+  grunt.registerTask('development', ['build', 'less:development', 'copy', 'clean:tmp']);
+  grunt.registerTask('build', ['jshint', 'clean:build', 'emberTemplates', 'includes', 'concat']);
 
   grunt.registerTask('default', ['development']);
 

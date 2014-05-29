@@ -1,4 +1,4 @@
-export default DS.Model.extend({
+Stalker.Division = DS.Model.extend({
   name: DS.attr('string'),
 
   users: DS.hasMany('user'),

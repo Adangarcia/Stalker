@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <ul class="tabs">
+      {{#each division in divisions}}
+        <li>
+          {{#link-to 'divisions.show' division}}
+            {{division.name}}
+          {{/link-to}}
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <ul class="small-block-grid-1 large-block-grid-2">
+      <li>Stuff here please</li>
+    </ul>
+  </div>
+</div>

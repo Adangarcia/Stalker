@@ -1,4 +1,4 @@
-export default DS.Model.extend({
+Stalker.User = DS.Model.extend({
   name: DS.attr('string'),
   role: DS.attr('string'),
   username: DS.attr('string'),
