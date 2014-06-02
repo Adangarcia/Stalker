@@ -95,6 +95,7 @@ module.exports = function(sequelize, Types) {
         var attrs = utils.clone(this.values);
 
         return {
+          id: attrs.id,
           name: attrs.name,
           username: attrs.username,
           avatar: attrs.avatar,
