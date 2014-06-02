@@ -8,18 +8,45 @@
   });
 
   /**
-   * Add our token to the default RESTAdapter headers
+   * Configure the default RESTAdapter
    */
 
-  DS.RESTAdapter.reopen({
-    namespace: '/api/',
-    headers: {
-      'Authorization': $('[name="authorization]').attr('content')
+  Stalker.ApplicationAdapter = DS.RESTAdapter.extend({
+    namespace: 'api',
+    defaultSerializer: DS.JSONSerializer
+  });
+
+  /**
+   * Initializer for injecting the current user controller
+   * into all controllers
+   */
+
+  Ember.Application.initializer({
+    name: 'currentUser',
+    after: 'store',
+
+    initialize: function(container, application) {
+      var store = container.lookup('store:main'),
+          attrs = JSON.parse($('meta[name="current-user"]').attr('content'));
+
+      // Add the current user to store
+      var user = store.push('user', attrs);
+
+      container.lookup('controller:currentUser').set('content', user);
+      container.typeInjection('controller', 'currentUser', 'controller:currentUser');
+
+      // Set the headers using the current users token
+      //
+      // TODO: Make this less of a hack!
+      container.lookup('adapter:application').set('headers', {
+        Authorization: attrs.token
+      });
     }
   });
 
   // import models/index
   // import controllers/index
+  // import views/index
   // import routes/index
   // import router
 })(window);
