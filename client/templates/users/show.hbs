@@ -1,0 +1,14 @@
+<section class="user">
+  <div class="row">
+    <div class="small-6 large-3 columns">
+      <img {{bind-attr src=user.avatar}} />
+    </div>
+
+    <div class="small-6 large-6 columns">
+      {{user.name}}
+    </div>
+
+  <div class="hidden-mobile large-3 columns">
+    {{user.updated_at}}
+  </div>
+</section>

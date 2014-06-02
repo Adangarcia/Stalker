@@ -1,7 +1,25 @@
-<header>
   <nav class="top-bar">
-    <a href="http://txssc.txstate.edu">
-      <h1 class="logo-white">TxSSC</h1>
-    </a>
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="/">Stalker</a></h1>
+      </li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="right">
+        {{!-- Insert link to edit current user --}}
+        <li>
+          {{#link-to 'users.edit' currentUser}}
+            <i class="fa fa-paper-plane"></i> Set my status
+          {{/link-to}}
+        </li>
+        <li class="divider"></li>
+        <li class="has-dropdown not-click">
+          <a href="#">{{currentUser.name}}</a>
+          <ul class="dropdown">
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
   </nav>
 </header>

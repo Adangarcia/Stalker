@@ -1,21 +1,29 @@
 <div class="row">
   <div class="small-12 large-12 columns">
-    <ul class="tabs">
+    <ul class="divisions">
       {{#each division in divisions}}
-        <li>
+        <li class="tab-title active">
           {{#link-to 'divisions.show' division}}
             {{division.name}}
           {{/link-to}}
         </li>
       {{/each}}
+
+      <li>{{#link-to 'divisions.new'}}<i class="fa fa-plus"></i>{{/link-to}}</li>
     </ul>
   </div>
 </div>
 
 <div class="row">
   <div class="small-12 large-12 columns">
-    <ul class="small-block-grid-1 large-block-grid-2">
-      <li>Stuff here please</li>
-    </ul>
+    {{#if users}}
+      <ul class="small-block-grid-1 large-block-grid-2">
+        {{#each user in users}}
+          {{view Stalker.UserShowView}}
+        {{/each}}
+      </ul>
+    {{else}}
+      <p>There are no users to see here, you might start by assigning users to a group on the {{#link-to 'index'}}home{{/link-to}} page&hellip;</p>
+    {{/if}}
   </div>
 </div>

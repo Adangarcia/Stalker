@@ -2,10 +2,11 @@ doctype html
 html(lang="en")
   head
     title= "Stalker"
-    meta(name="authorization", content="#{user.token}")
-    link(rel="stylesheet", src="/assets/stalker.css")
+    link(rel="stylesheet", href="/assets/stalker.css")
     script(src="/assets/vendor.js")
     script(src="/assets/templates.js")
     script(src="/assets/stalker.js")
 
+    meta(name="current-user", content="#{JSON.stringify(user)}")
+    meta(name="divisions", content="#{JSON.stringify(divisions)}")
   body
