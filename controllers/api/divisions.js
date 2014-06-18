@@ -1,4 +1,6 @@
-var Division = require('../../models').Division;
+var utils = require('../../lib/utils'),
+    User = require('../../models').User,
+    Division = require('../../models').Division;
 
 /**
  * Return Division routes
@@ -17,8 +19,8 @@ module.exports = {
 
   param: function(req, res, next, id) {
     Division.find(id).complete(function(err, division) {
-      if(err) return res.json(500, { error: err });
-      if(!division) return res.json(404, { error: 'not found' });
+      if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
+      if(!division) return res.json(404, { errors: ['not found'] });
 
       req.data = req.data || {};
       req.data.division = division;
@@ -34,9 +36,9 @@ module.exports = {
    */
 
   index: function(req, res) {
-    Division.findAll({ where: req.query }).complete(function(err, divisions) {
-      if(err) return res.json(500, { error: err });
-      return res.json(200, divisions);
+    Division.all(User, req.query).complete(function(err, divisions) {
+      if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
+      return res.json(200, { divisions: divisions });
     });
   },
 
@@ -48,9 +50,17 @@ module.exports = {
    */
 
   create: function(req, res) {
-    Division.create(req.body).complete(function(err, division) {
-      if(err) return res.json(500, { error: err });
-      return res.json(201, division);
+    var attrs = req.body.division;
+
+    if(attrs === undefined || attrs === null) {
+      return res.json(422, {
+        errors: ['invalid division']
+      });
+    }
+
+    Division.create(attrs).complete(function(err, division) {
+      if(err) return res.json(400, { errors: utils.normalizeErrors(err) });
+      return res.json(201, { division: division });
     });
   },
 
@@ -64,7 +74,7 @@ module.exports = {
   get: function(req, res) {
     var division = req.data.division;
 
-    return res.json(division);
+    return res.json({ division: division });
   },
 
   /**
@@ -75,11 +85,18 @@ module.exports = {
    */
 
   update: function(req, res) {
-    var division = req.data.division;
+    var division = req.data.division,
+        attrs = req.body.division;
 
-    division.updateAttributes(req.body).complete(function(err, user) {
-      if(err) return res.json(500, { error: err });
-      return res.json(user);
+    if(attrs === undefined || attrs === null) {
+      return res.json(422, {
+        errors: ['invalid division']
+      });
+    }
+
+    division.updateAttributes(attrs).complete(function(err, division) {
+      if(err) return res.json(400, { errors: utils.normalizeErrors(err) });
+      return res.json({ division: division });
     });
   },
 
@@ -94,7 +111,7 @@ module.exports = {
     var division = req.data.division;
 
     division.destroy().complete(function(err) {
-      if(err) return res.json(500, { error: err });
+      if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
       return res.send(204);
     });
   }

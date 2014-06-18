@@ -1,4 +1,5 @@
-var User = require('../../models').User,
+var utils = require('../../lib/utils'),
+    User = require('../../models').User,
     Division = require('../../models').Division;
 
 /**
@@ -18,8 +19,8 @@ module.exports = {
 
   param: function(req, res, next, id) {
     User.find(id).complete(function(err, user) {
-      if(err) return res.json(500, { error: err });
-      if(!user) return res.json(404, { error: 'not found' });
+      if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
+      if(!user) return res.json(404, { errors: ['not found'] });
 
       req.data = req.data || {};
       req.data.user = user;
@@ -35,9 +36,9 @@ module.exports = {
    */
 
   index: function(req, res) {
-    User.findAll({ where: req.query, include: [ Division ] }).complete(function(err, users) {
-      if(err) return res.json(500, { error: err });
-      return res.json(200, users);
+    User.findAll({ where: req.query }).complete(function(err, users) {
+      if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
+      return res.json(200, { users: users });
     });
   },
 
@@ -51,7 +52,7 @@ module.exports = {
   get: function(req, res) {
     var user = req.data.user;
 
-    return res.json(user);
+    return res.json({ user: user });
   },
 
   /**
@@ -62,11 +63,24 @@ module.exports = {
    */
 
   update: function(req, res) {
-    var user = req.data.user;
+    var user = req.data.user,
+        attrs = req.body.user;
 
-    user.updateAttributes(req.body).complete(function(err, user) {
-      if(err) return res.json(500, { error: err });
-      return res.json(user);
+    if(attrs === undefined || attrs === null) {
+      return res.json(422, {
+        errors: ['invalid user data']
+      });
+    }
+
+    // Turn division to division_id and run parseInt on it
+    if(attrs.division) {
+      attrs.division_id = parseInt(attrs.division, 10);
+      delete attrs.division;
+    }
+
+    user.updateAttributes(attrs).complete(function(err, user) {
+      if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
+      return res.json({ user: user });
     });
   },
 
@@ -81,7 +95,7 @@ module.exports = {
     var user = req.data.user;
 
     user.destroy().complete(function(err) {
-      if(err) return res.json(500, { error: err });
+      if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
       return res.send(204);
     });
   }
