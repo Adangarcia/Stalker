@@ -1,6 +1,7 @@
 var controllers = {
   API: require('./api'),
   Pages: require('./pages'),
+  Events: require('./events'),
   Authentication: require('./authentication')
 };
 
@@ -23,6 +24,11 @@ module.exports = function(app) {
 
     '/login': {
       get: controllers.Pages.login
+    },
+
+    // TODO: Authenticate this...
+    '/events': {
+      get: controllers.Events
     },
 
     '/auth': {

@@ -44,6 +44,29 @@
     }
   });
 
+  /**
+   * Initializer for adding socket event data to the store
+   */
+
+  Ember.Application.initializer({
+    name: 'eventSource',
+    after: 'store',
+
+    initialize: function(container, application) {
+      var store = container.lookup('store:main'),
+          events = new EventSource('/events');
+
+      events.addEventListener('user', function(e) {
+        store.pushPayload('user', { user: JSON.parse(e.data) });
+      });
+
+      events.addEventListener('division', function(e) {
+        store.pushPayload('division', { division: JSON.parse(e.data) });
+      });
+    }
+  });
+
+
   // import models/index
   // import controllers/index
   // import views/index
