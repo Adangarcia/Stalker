@@ -1,5 +1,6 @@
 .tmp
 node_modules
+npm-debug.log
 client/vendor
 config/config.json
 public/assets/*
