@@ -21,6 +21,6 @@
     "jQuery": true,
     "Ember": true,
     "Handlebars": true,
-    "DS": true
+    "moment": true
   }
 }

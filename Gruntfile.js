@@ -67,7 +67,8 @@ module.exports = function(grunt) {
             'client/vendor/jquery/dist/jquery.js',
             'client/vendor/handlebars/handlebars.js',
             'client/vendor/ember/ember.js',
-            'client/vendor/ember-data/ember-data.js'
+            'client/vendor/ember-data/ember-data.js',
+            'client/vendor/moment/moment.js'
           ]
         }
       }
