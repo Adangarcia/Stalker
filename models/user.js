@@ -83,25 +83,6 @@ module.exports = function(sequelize, Types) {
         delete attrs.active;
 
         return attrs;
-      },
-
-      /**
-       * Serialize a user to a session object
-       *
-       * @return {Object}
-       */
-
-      toSession: function() {
-        var attrs = utils.clone(this.values);
-
-        return {
-          id: attrs.id,
-          name: attrs.name,
-          username: attrs.username,
-          avatar: attrs.avatar,
-          role: attrs.role,
-          token: attrs.token
-        };
       }
 
     },
