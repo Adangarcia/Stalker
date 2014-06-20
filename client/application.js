@@ -42,7 +42,6 @@
 
       var record = serializer.extract(this, model, data, data[type].id, 'single');
 
-      console.log(record);
       return this.push(type, record);
     }
   });
