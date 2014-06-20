@@ -79,8 +79,11 @@ module.exports = function(sequelize, Types) {
       toJSON: function() {
         var attrs = utils.clone(this.values);
 
+        attrs.division = attrs.division_id;
+
         delete attrs.token;
         delete attrs.active;
+        delete attrs.division_id;
 
         return attrs;
       }
@@ -140,7 +143,6 @@ module.exports = function(sequelize, Types) {
             });
         }).run();
       }
-
     }
   });
 };
