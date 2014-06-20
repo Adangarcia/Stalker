@@ -1,0 +1,8 @@
+{{#if isEditing}}
+  {{focus-input value=name type='text'}}
+  <i class="fa fa-times destroy" {{action 'destroy'}}></i>
+{{else}}
+  {{#link-to 'divisions.show' this}}
+    {{name}}
+  {{/link-to}}
+{{/if}}

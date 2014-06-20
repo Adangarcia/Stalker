@@ -1,0 +1,61 @@
+{{#modal-dialog action="closeModal"}}
+  {{#if isAdmin}}
+    <p>Admin stuff here</p>
+  {{/if}}
+
+  <form>
+    {{#if isEditable}}
+      <div class="row">
+        <div class="large-12 columns">
+          <label>Division:
+            {{view Ember.Select
+              contentBinding='divisions'
+              prompt='Select division'
+              optionValuePath='content.id'
+              optionLabelPath='content.name'
+              selectionBinding='selectedDivision'
+            }}
+          </label>
+        </div>
+      </div>
+    {{/if}}
+
+    <div class="row">
+      <div class="small-4 large-4 columns">
+        <button {{bind-attr class=':medium isIn:active'}} {{action 'setLocation' 'In'}}>In</button>
+      </div>
+
+      <div class="small-4 large-4 columns">
+        <button {{bind-attr class=':medium isLunch:active'}} {{action 'setLocation' 'Lunch'}}>Lunch</button>
+      </div>
+
+      <div class="small-4 large-4 columns">
+        <button {{bind-attr class=':medium isOut:active'}} {{action 'setLocation' 'Out'}}>Out</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-6 large-6 columns">
+        <label>Location
+          {{input value=location type='text' placeholder='Conference'}}
+        </label>
+      </div>
+
+      <div class="small-6 large-6 columns">
+        <label>Back
+          <div class="row collapse">
+            <div class="small-10 columns">
+              {{input name='back' value=back type='text' readonly=true}}
+            </div>
+
+            <div class="small-2 columns">
+              <span class="postfix" {{action 'openPicker'}}>
+                <i class="fa fa-calendar"></i>
+              </span>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+  </form>
+{{/modal-dialog}}

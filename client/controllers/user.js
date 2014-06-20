@@ -12,6 +12,6 @@ Stalker.CurrentUserController = Ember.ObjectController.extend({
 
   isAdmin: function() {
     return this.get('role') === 'admin';
-  }
+  }.property('role')
 
 });

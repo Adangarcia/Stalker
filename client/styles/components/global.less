@@ -1,0 +1,15 @@
+// -----------------------------------
+// Global Styles
+// -----------------------------------
+
+body { font-family: @sans-serif; }
+
+// Override default foundation modal styles
+.reveal-modal { visibility: initial; }
+
+.top-bar {
+  &, a, ul { background: linear-gradient(to bottom, lighten(@maroon, 12%), @maroon) !important; }
+  a:hover { background: linear-gradient(to bottom, lighten(@maroon, 14%), lighten(@maroon, 2%)) !important; }
+
+  .divider { border-right: 1px solid @ashGray; }
+}

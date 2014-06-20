@@ -13,7 +13,38 @@
 
   Stalker.ApplicationAdapter = DS.RESTAdapter.extend({
     namespace: 'api',
-    defaultSerializer: DS.JSONSerializer
+
+    /**
+     * Pass array attached to the actual attribute when finding many
+     */
+
+    findMany: function(store, type, ids) {
+      return this.ajax(this.buildURL(type.typeKey), 'GET', { data: { id: ids } });
+    },
+  });
+
+  /**
+   * Define our store
+   */
+
+  Stalker.ApplicationStore = DS.Store.extend({
+
+    /**
+     * Handle pushing new server sent models into the store
+     *
+     * @param {String} type
+     * @param {Object} data
+     */
+
+    pushServerModel: function(type, data) {
+      var model = this.modelFor(type),
+          serializer = this.serializerFor(type);
+
+      var record = serializer.extract(this, model, data, data[type].id, 'single');
+
+      console.log(record);
+      return this.push(type, record);
+    }
   });
 
   /**
@@ -29,11 +60,19 @@
       var store = container.lookup('store:main'),
           attrs = JSON.parse($('meta[name="current-user"]').attr('content'));
 
-      // Add the current user to store
-      var user = store.push('user', attrs);
+      // Add the current user to store with pushPayload in order to
+      // run attributes through the serializer
+      store.pushPayload('user', { user: attrs });
 
-      container.lookup('controller:currentUser').set('content', user);
-      container.typeInjection('controller', 'currentUser', 'controller:currentUser');
+      // Defer app readiness so we can look up the user first
+      application.deferReadiness();
+
+      store.find('user', attrs.id).then(function(user) {
+        container.lookup('controller:currentUser').set('content', user);
+        container.typeInjection('controller', 'currentUser', 'controller:currentUser');
+
+        application.advanceReadiness();
+      });
 
       // Set the headers using the current users token
       //
@@ -56,12 +95,39 @@
       var store = container.lookup('store:main'),
           events = new EventSource('/events');
 
+      function parse(json) {
+        var result;
+
+        try {
+          result = JSON.parse(json);
+        } catch(e) {
+          result = null;
+          console.error('Invalid JSON format received from server.');
+        }
+
+        return result;
+      }
+
       events.addEventListener('user', function(e) {
-        store.pushPayload('user', { user: JSON.parse(e.data) });
+        var user = parse(e.data);
+
+        if(!user) return;
+
+        // TODO: Fix hack
+        setTimeout(function() {
+          store.pushServerModel('user', { user: user });
+        }, 1000);
       });
 
       events.addEventListener('division', function(e) {
-        store.pushPayload('division', { division: JSON.parse(e.data) });
+        var division = parse(e.data);
+
+        if(!division) return;
+
+        // TODO: Fix hack
+        setTimeout(function() {
+          store.pushServerModel('division', { division: division });
+        }, 1000);
       });
     }
   });
@@ -69,7 +135,9 @@
 
   // import models/index
   // import controllers/index
+  // import components/index
   // import views/index
+  // import helpers/index
   // import routes/index
   // import router
 })(window);

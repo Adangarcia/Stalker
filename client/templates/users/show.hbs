@@ -1,14 +1,37 @@
-<section class="user">
-  <div class="row">
-    <div class="small-6 large-3 columns">
-      <img {{bind-attr src=user.avatar}} />
+<div class="row meta">
+  <div class="small-4 medium-2 large-2 columns">
+    <div class="avatar">
+      <img {{bind-attr src=avatar}} {{bind-attr alt=name}} />
     </div>
-
-    <div class="small-6 large-6 columns">
-      {{user.name}}
-    </div>
-
-  <div class="hidden-mobile large-3 columns">
-    {{user.updated_at}}
   </div>
-</section>
+
+  <div class="small-8 medium-6 large-6 columns">
+    <h4 class="name">{{name}}</h4>
+  </div>
+
+  <div class="large-4 medium-4 columns hide-for-small-only">
+    <div class="updated">
+      {{timeago updated_at}}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <div class="divider"></div>
+  </div>
+</div>
+
+<div class="row details">
+  <div class="small-6 large-6 columns location">
+    <div class="location">
+      {{location}}
+    </div>
+  </div>
+
+  <div class="small-6 large-6 columns back">
+    <div class="back">
+      {{timeago back}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <ul class="divisions clearfix">
+      {{#each itemController='divisionTab'}}
+        {{view Stalker.DivisionTabView}}
+      {{/each}}
+
+      {{#if isAdmin}}
+        <li class="new"><a href="#" {{action 'add'}}><i class="fa fa-plus"></i></a></li>
+      {{/if}}
+    </ul>
+  </div>
+</div>

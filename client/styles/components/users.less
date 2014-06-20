@@ -1,0 +1,53 @@
+// -----------------------------------
+// Container
+// -----------------------------------
+
+.users {
+  padding-top: 10px;
+
+  p { margin-top: 10px; }
+}
+
+.user-edit {
+  form button { width: 100%; }
+
+  .active {
+    background: #006;
+  }
+}
+
+.user {
+  padding: 10px;
+  border: 1px solid @border;
+
+  &.editable { cursor: pointer; }
+
+  time {
+    color: @ashGray;
+    font-size: 10px;
+  }
+
+  .name {
+    margin: 0;
+    line-height: 50px;
+    font-family: @sans-serif;
+  }
+
+  // Hack to get a clean border with foundation
+  .divider {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 1px solid lighten(@border, 10%);
+  }
+
+  .avatar {
+    padding: 1px;
+    border-radius: 2px;
+    border: 1px solid lighten(@border, 8%);
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+}

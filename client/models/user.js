@@ -4,9 +4,9 @@ Stalker.User = DS.Model.extend({
   username: DS.attr('string'),
   avatar: DS.attr('string'),
   location: DS.attr('string'),
-  back: DS.attr('string'),
+  back: DS.attr('date'),
 
-  division: DS.belongsTo('division'),
+  division: DS.belongsTo('division', { async: true }),
 
   created_at: DS.attr('date'),
   updated_at: DS.attr('date')

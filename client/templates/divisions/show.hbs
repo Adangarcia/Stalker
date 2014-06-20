@@ -3,14 +3,14 @@
     <div class="users">
       {{#if hasUsers}}
         <ul class="small-block-grid-1 large-block-grid-2">
-          {{#each}}
+          {{#each users}}
             <li>
               {{view Stalker.UserShowView contentBinding='this'}}
             </li>
           {{/each}}
         </ul>
       {{else}}
-        <p>There are no users to see here, someone should probably login&hellip; or something is drastically wrong here!</p>
+        <p>There are no users to see here, you might start by assigning users to a group on the {{#link-to 'index'}}home{{/link-to}} page&hellip;</p>
       {{/if}}
     </div>
   </div>
