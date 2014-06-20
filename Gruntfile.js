@@ -68,7 +68,8 @@ module.exports = function(grunt) {
             'client/vendor/handlebars/handlebars.js',
             'client/vendor/ember/ember.js',
             'client/vendor/ember-data/ember-data.js',
-            'client/vendor/moment/moment.js'
+            'client/vendor/moment/moment.js',
+            'client/vendor/datetimepicker/jquery.datetimepicker.js'
           ]
         }
       }
