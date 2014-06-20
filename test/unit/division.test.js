@@ -4,7 +4,7 @@ var should = require('should'),
     Division = models.Division,
     User = models.User;
 
-describe('User', function() {
+describe('Division', function() {
   before(function(done) {
     sequelize
       .sync({ force: true })
@@ -12,27 +12,41 @@ describe('User', function() {
   });
 
   describe('user association', function() {
-    var user;
+    var user, division;
 
     before(function(done) {
       User.create({
         name: "Anakin Skywalker",
         username: "skywalker"
       }).complete(function(err, u) {
+        if(err) return done(err);
         user = u;
-        return done(err);
+
+        Division.create({
+          name: 'Jedi'
+        }).complete(function(err, d) {
+          if(err) return done(err);
+          division = d;
+
+          return d.addUser(user).complete(done);
+        });
       });
     });
 
     it('should be able to associate', function(done) {
-      Division.create({
-        name: 'Jedi'
-      }).complete(function(err, division) {
+      division.getUsers().complete(function(err, users) {
+        users[0].name.should.equal(user.name);
+        division.id.should.equal(users[0].division_id);
+        return done(err);
+      });
+    });
+
+    it('should remove user associations on destroy', function(done) {
+      division.destroy().complete(function(err) {
         if(err) return done(err);
 
-        division.addUser(user).complete(function(err, u) {
-          u.name.should.equal(user.name);
-          division.id.should.equal(user.division_id);
+        user.reload().complete(function(err, u) {
+          u.should.have.property('division_id', null);
           return done(err);
         });
       });

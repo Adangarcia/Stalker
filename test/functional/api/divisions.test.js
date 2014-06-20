@@ -35,7 +35,7 @@ describe('`/api/divisions`', function() {
           .get('/api/divisions')
           .set('Authorization', 'please')
           .end(function(err, res) {
-            res.body.should.eql([]);
+            res.body.divisions.should.eql([]);
             return done(err);
           });
       });
@@ -73,7 +73,7 @@ describe('`/api/divisions`', function() {
           .get('/api/divisions')
           .set('Authorization', 'please')
           .end(function(err, res) {
-            res.body.should.have.length(2);
+            res.body.divisions.should.have.length(2);
             return done(err);
           });
       });
@@ -84,8 +84,8 @@ describe('`/api/divisions`', function() {
           .query({ name: 'Sith Lords' })
           .set('Authorization', 'please')
           .end(function(err, res) {
-            res.body.should.have.length(1);
-            res.body[0].should.have.property('name', 'Sith Lords');
+            res.body.divisions.should.have.length(1);
+            res.body.divisions[0].should.have.property('name', 'Sith Lords');
             return done(err);
           });
       });
@@ -116,7 +116,7 @@ describe('`/api/divisions`', function() {
             .get('/api/divisions/404')
             .set('Authorization', 'please')
             .end(function(err, res) {
-              res.body.should.eql({ error: 'not found' });
+              res.body.should.eql({ errors: ['not found'] });
               return done(err);
             });
         });
@@ -160,7 +160,7 @@ describe('`/api/divisions`', function() {
               attrs.created_at = attrs.created_at.toJSON();
               attrs.updated_at = attrs.updated_at.toJSON();
 
-              res.body.should.eql(attrs);
+              res.body.division.should.eql(attrs);
               return done(err);
             });
         });
@@ -184,7 +184,7 @@ describe('`/api/divisions`', function() {
           .put('/api/divisions/' + division.id)
           .set('Content-Type', 'application/json')
           .set('Authorization', 'please')
-          .send({ name: 'Admiral Ackbar' })
+          .send({ division: { name: 'Admiral Ackbar' } })
           .expect(200)
           .end(done);
       });
@@ -194,9 +194,9 @@ describe('`/api/divisions`', function() {
           .put('/api/divisions/' + division.id)
           .set('Content-Type', 'application/json')
           .set('Authorization', 'please')
-          .send({ name: 'Admiral Ackbar' })
+          .send({ division: { name: 'Admiral Ackbar' } })
           .end(function(err, res) {
-            res.body.should.have.property('name', 'Admiral Ackbar');
+            res.body.division.should.have.property('name', 'Admiral Ackbar');
             return done(err);
           });
       });

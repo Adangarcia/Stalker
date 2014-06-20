@@ -35,7 +35,7 @@ describe('`/api/users`', function() {
           .get('/api/users')
           .set('Authorization', 'please')
           .end(function(err, res) {
-            res.body.should.eql([]);
+            res.body.users.should.eql([]);
             return done(err);
           });
       });
@@ -75,7 +75,7 @@ describe('`/api/users`', function() {
           .get('/api/users')
           .set('Authorization', 'please')
           .end(function(err, res) {
-            res.body.should.have.length(2);
+            res.body.users.should.have.length(2);
             return done(err);
           });
       });
@@ -86,8 +86,8 @@ describe('`/api/users`', function() {
           .query({ username: 'quigon' })
           .set('Authorization', 'please')
           .end(function(err, res) {
-            res.body.should.have.length(1);
-            res.body[0].should.have.property('username', 'quigon');
+            res.body.users.should.have.length(1);
+            res.body.users[0].should.have.property('username', 'quigon');
             return done(err);
           });
       });
@@ -118,7 +118,7 @@ describe('`/api/users`', function() {
             .get('/api/users/404')
             .set('Authorization', 'please')
             .end(function(err, res) {
-              res.body.should.eql({ error: 'not found' });
+              res.body.should.eql({ errors: ['not found'] });
               return done(err);
             });
         });
@@ -164,7 +164,7 @@ describe('`/api/users`', function() {
               attrs.created_at = attrs.created_at.toJSON();
               attrs.updated_at = attrs.updated_at.toJSON();
 
-              res.body.should.eql(attrs);
+              res.body.user.should.eql(attrs);
               return done(err);
             });
         });
@@ -189,7 +189,7 @@ describe('`/api/users`', function() {
           .put('/api/users/' + user.id)
           .set('Content-Type', 'application/json')
           .set('Authorization', 'please')
-          .send({ name: 'Admiral Ackbar' })
+          .send({ user: { name: 'Admiral Ackbar' } })
           .expect(200)
           .end(done);
       });
@@ -199,9 +199,9 @@ describe('`/api/users`', function() {
           .put('/api/users/' + user.id)
           .set('Content-Type', 'application/json')
           .set('Authorization', 'please')
-          .send({ name: 'Admiral Ackbar' })
+          .send({ user: { name: 'Admiral Ackbar' } })
           .end(function(err, res) {
-            res.body.should.have.property('name', 'Admiral Ackbar');
+            res.body.user.should.have.property('name', 'Admiral Ackbar');
             return done(err);
           });
       });

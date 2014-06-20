@@ -31,11 +31,11 @@ describe('User', function() {
         });
 
         it('should default `location` to ""', function() {
-          user.back.should.equal('');
+          user.location.should.equal('');
         });
 
-        it('should default `back` to ""', function() {
-          user.back.should.equal('');
+        it('should default `back` to `null`', function() {
+          should.equal(user.back, null);
         });
 
         it('should default `role` to "member"', function() {
@@ -79,22 +79,6 @@ describe('User', function() {
 
         it('should not return unsafe attributes', function() {
           attrs.should.not.have.properties('token', 'active');
-        });
-      });
-
-      describe('`toSession()`', function() {
-        var attrs;
-
-        before(function() {
-          attrs = user.toSession();
-        });
-
-        it('should return session relevant attributes', function() {
-          attrs.should.have.properties('name', 'avatar', 'role', 'username');
-        });
-
-        it('should not return non-session relevant attributes', function() {
-          attrs.should.not.have.properties('token', 'active', 'back', 'location');
         });
       });
     });
