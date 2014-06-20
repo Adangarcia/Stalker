@@ -34,6 +34,27 @@ module.exports = function(sequelize, Types) {
     }
   },
   {
+    hooks: {
+
+      /**
+       * Reset the division on all users before destroying the model
+       *
+       * @param {Object} model
+       * @param {Function} done
+       */
+
+      beforeDestroy: function(model, done) {
+        model.getUsers().complete(function(err, users) {
+          async.each(users, function(user, next) {
+            user.setDivision(null).complete(next);
+          },
+          function(err) {
+            return done(null, model);
+          });
+        });
+      }
+    },
+
     classMethods: {
 
       /**
