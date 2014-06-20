@@ -57,8 +57,8 @@ module.exports = function(sequelize, Types) {
     },
 
     back: {
-      type: Types.STRING,
-      defaultValue: ''
+      type: Types.DATE,
+      defaultValue: null
     },
 
     token: {
