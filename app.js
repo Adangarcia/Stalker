@@ -21,6 +21,7 @@ var app = module.exports = express();
  */
 
 app.set('view engine', 'jade');
+app.set('views', __dirname + '/views');
 app.set('port', process.env.STALKER_PORT || 3000);
 app.set('api token', process.env.API_TOKEN || 'please');
 app.set('session secret', process.env.SESSION_SECRET || 'dirty secret');
