@@ -54,7 +54,7 @@ Stalker.UserEditView = Ember.View.extend({
     var picker = this.get('picker');
 
     if(picker) {
-      picker.datetimepicker('open');
+      picker.datetimepicker('show');
     }
   }.observes('controller.pickerOpen')
 
