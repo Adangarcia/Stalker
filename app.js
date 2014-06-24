@@ -30,26 +30,6 @@ app.set('passport secret', process.env.CONSUMER_SECRET);
 app.set('passport host', 'localhost:' + app.get('port'));
 
 /**
- * Configure passport strategy
- */
-
-lib.middleware.passport(app);
-
-/**
- * Configure middleware
- */
-
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(methodOverride());
-app.use(cookieParser());
-app.use(expressSession({ secret: app.get('session secret'), store: new Store() }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use('/api|\//', lib.middleware.authenticate(app));
-
-/**
  * Development only settings
  */
 
@@ -68,6 +48,26 @@ if(app.get('env') === 'production') {
   // Configure middleware
   app.use(morgan('short'));
 }
+
+/**
+ * Configure passport strategy
+ */
+
+lib.middleware.passport(app);
+
+/**
+ * Configure middleware
+ */
+
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(cookieParser());
+app.use(expressSession({ secret: app.get('session secret'), store: new Store() }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/api|\//', lib.middleware.authenticate(app));
 
 /**
  * Helper function for mounting routes
