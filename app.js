@@ -7,7 +7,8 @@ var lib = require('./lib'),
     controllers = require('./controllers'),
     cookieParser = require('cookie-parser'),
     expressSession = require('express-session'),
-    methodOverride = require('method-override');
+    methodOverride = require('method-override'),
+    Store = require('connect-redis')(expressSession);
 
 /**
  * Define base app and export it for testability
@@ -38,10 +39,11 @@ lib.middleware.passport(app);
  */
 
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(cookieParser());
-app.use(expressSession({ secret: app.get('session secret') }));
+app.use(expressSession({ secret: app.get('session secret'), store: new Store() }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api|\//', lib.middleware.authenticate(app));
