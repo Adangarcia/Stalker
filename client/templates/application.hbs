@@ -2,29 +2,30 @@
 
 <header role="complementary">
   <nav class="top-bar">
-  <ul class="title-area">
-    <li class="name">
-      <h1>
-        <a href="/">Stalker</a>
-      </h1>
-    </li>
-  </ul>
-
-  <section class="top-bar-section">
-    <ul class="right">
-      <li>
-        <a {{action 'openModal' 'userEdit' currentUser}}>
-          <i class="fa fa-paper-plane"></i> Set my status
-        </a>
-      </li>
-      <li class="divider"></li>
-      <li class="has-dropdown not-click">
-        <a href="#">{{currentUser.name}}</a>
-        <ul class="dropdown">
-          <li><a href="/auth/logout">Logout</a></li>
-        </ul>
+    <ul class="title-area">
+      <li class="name">
+        <h1 class="logo">
+          <a href="/">Stalker</a>
+        </h1>
       </li>
     </ul>
+
+    <section class="top-bar-section">
+      <ul class="right">
+        <li>
+          <a {{action 'openModal' 'userEdit' currentUser}}>
+            <i class="fa fa-paper-plane"></i> Set my status
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li class="has-dropdown not-click">
+          <a href="#">{{currentUser.name}}</a>
+          <ul class="dropdown">
+            <li><a href="/auth/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
   </nav>
 </header>
 
