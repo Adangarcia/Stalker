@@ -7,9 +7,33 @@ body { font-family: @sans-serif; }
 // Override default foundation modal styles
 .reveal-modal { visibility: initial; }
 
-.top-bar {
-  &, a, ul { background: linear-gradient(to bottom, lighten(@maroon, 12%), @maroon) !important; }
-  a:hover { background: linear-gradient(to bottom, lighten(@maroon, 14%), lighten(@maroon, 2%)) !important; }
+.logo-txssc {
+  height: 110px;
+  font-size: 1em;
+  margin-bottom: 20px;
+  text-indent: -9999px;
+  background-image: url('/assets/images/txssc-logo.png');
+  background-position: center center;
+  background-size: 450px 110px;
+  background-repeat: no-repeat;
+}
 
-  .divider { border-right: 1px solid @ashGray; }
+@media screen and (min-resolution: 2dppx) {
+  .logo-txssc {
+    background-image: url('/assets/images/txssc-logo@2x.png');
+  }
+}
+
+// Mobile logos
+@media screen and (max-width: 600px) {
+  .logo-txssc {
+    background-image: url('/assets/images/txssc-mobile.png');
+    background-size: 300px 76px;
+  }
+
+  @media (min-resolution: 2dppx) {
+    .logo-txssc {
+      background-image: url('/assets/images/txssc-mobile@2x.png');
+    }
+  }
 }

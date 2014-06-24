@@ -4,4 +4,35 @@
 
 header {
   margin-bottom: 20px;
+
+  .top-bar {
+    .divider { border-right: 1px solid @ashGray; }
+
+    // background: #c0b0ae;
+    &, section a { background: linear-gradient(to bottom, @headerTop, @headerBottom) !important; }
+
+    .logo:hover,
+    section a:hover {
+      background: linear-gradient(to bottom, lighten(@headerTop, 3%), lighten(@headerBottom, 3%)) !important;
+    }
+
+    .name .logo {
+      padding: 0 8px;
+
+      a {
+        display: block;
+        width: 110px;
+        height: 45px;
+        text-indent: -9999px;
+        background-image: url('/assets/images/logo.png');
+        background-position: center center;
+        background-size: 110px 45px;
+        background-repeat: no-repeat;
+
+        @media (min-resolution: 2dppx) {
+          background-image: url('/assets/images/logo@2x.png');
+        }
+      }
+    }
+  }
 }
