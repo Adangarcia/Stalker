@@ -9,22 +9,29 @@
 }
 
 .user-edit {
-  form button { width: 100%; }
-
   .active {
-    background: #006;
+    background: @userActiveButton;
   }
 }
 
 .user {
   padding: 10px;
   border: 1px solid @border;
+  background: #f9f9f9;
 
-  &.editable { cursor: pointer; }
+  h4, h6 { color: @black; }
 
-  time {
+  &.editable {
+    cursor: pointer;
+    transition: box-shadow ease-in 0.4s;
+
+    &:hover { box-shadow: 0 0 5px 1px @userHover; }
+  }
+
+  .meta time {
     color: @ashGray;
-    font-size: 10px;
+    font-size: 12px;
+    line-height: 50px;
   }
 
   .name {
@@ -48,6 +55,29 @@
     img {
       display: block;
       width: 100%;
+    }
+  }
+
+  .details {
+    padding: 6px 4px 4px 4px;
+
+    h6 {
+      margin: 0;
+      font-size: 18px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .back {
+      text-align: right;
+
+      time {
+        color: @black;
+        font-size: 14px;
+        font-weight: 600;
+        font-style: italic;
+      }
     }
   }
 }
