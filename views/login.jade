@@ -6,15 +6,18 @@ html(lang="en")
     link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Titillium+Web:400,600')
 
   body
-    header
+    header(role="complementary")
       nav.top-bar
-        a(href="http://txssc.txstate.edu")
-          h1.logo-white TxSSC
+        ul.title-area
+          li.name
+            h1.logo
+              a(href="/") Stalker
 
-    .row
-      .large-6.small-12.large-centered.columns
-        h1.logo TxSSC
+    main(role="main")
+      .row
+        .large-6.medium-8.small-12.small-centered.large-centered.columns
+          h1.logo-txssc TxSSC
 
-        p Stalker is a status board for multi-division organizations. <a href="http://txssc.txstate.edu">TxSSC</a>.
+          p Stalker is a status board for multi-division organizations. <a href="http://txssc.txstate.edu">TxSSC</a>.
 
-        a.button.large.expand(href='/auth/login') Login with TxSSC
+          a.button.large.expand(href='/auth/login') Login with TxSSC
