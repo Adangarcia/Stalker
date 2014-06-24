@@ -62,7 +62,7 @@ if(app.get('env') === 'development') {
 
 if(app.get('env') === 'production') {
   // Configure settings
-  app.get('passport host', process.env.PASSPORT_HOST);
+  app.set('passport host', process.env.PASSPORT_HOST);
 
   // Configure middleware
   app.use(morgan('short'));
