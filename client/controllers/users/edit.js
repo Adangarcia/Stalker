@@ -14,9 +14,11 @@ Stalker.UserEditController = Ember.ObjectController.extend({
 
       if(newDivision) {
         // Ensure the has many is cleared on division
-        model.get('division').then(function(division) {
-          division.get('users').removeObject(model);
-        });
+        if(model.get('division')) {
+          model.get('division').then(function(division) {
+            division.get('users').removeObject(model);
+          });
+        }
 
         model.set('division', newDivision);
 
