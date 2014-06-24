@@ -4,6 +4,8 @@
 
 Stalker.DivisionTabsController = Ember.ArrayController.extend({
   activeTab: null,
+  sortAscending: true,
+  sortProperties: ['name'],
 
   actions: {
     add: function() {
