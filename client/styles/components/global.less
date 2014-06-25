@@ -18,28 +18,28 @@ body { font-family: @sans-serif; }
   font-size: 1em;
   margin-bottom: 20px;
   text-indent: -9999px;
-  background-image: url('/assets/images/txssc-logo.png');
+  background-image: url('/assets/images/txssc-mobile.png');
   background-position: center center;
-  background-size: 450px 110px;
+  background-size: 300px 76px;
   background-repeat: no-repeat;
 }
 
 @media screen and (min-resolution: 2dppx) {
   .logo-txssc {
-    background-image: url('/assets/images/txssc-logo@2x.png');
+    background-image: url('/assets/images/txssc-mobile@2x.png');
   }
 }
 
 // Mobile logos
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 600px) {
   .logo-txssc {
-    background-image: url('/assets/images/txssc-mobile.png');
-    background-size: 300px 76px;
+    background-image: url('/assets/images/txssc-logo.png');
+    background-size: 450px 110px;
   }
 
   @media (min-resolution: 2dppx) {
     .logo-txssc {
-      background-image: url('/assets/images/txssc-mobile@2x.png');
+      background-image: url('/assets/images/txssc-logo@2x.png');
     }
   }
 }
