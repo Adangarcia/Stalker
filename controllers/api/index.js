@@ -22,12 +22,20 @@ module.exports = function(app) {
    */
 
   function authorize(req, res, next) {
-    if(req.user && req.user.role === 'member' &&
-      req.method.match(/POST|PUT|DELETE/)) {
-      return res.json(403, { error: 'unauthorized' });
-    }
+    var parts = req.params[0].split('/'),
+        type = parts[0],
+        id = parts[1] ? parseInt(parts[1], 10) : null;
 
-    return next();
+    // Token auth or admin
+    if(!req.user || req.user && req.user.role === 'admin') return next();
+
+    // A non-privileged request
+    if(!req.method.match(/POST|PUT|DELETE/)) return next();
+
+    // User is editing themself
+    if(type === 'users' && id === req.user.id) return next();
+
+    return res.json(403, { error: 'unauthorized' });
   }
 
   /**
