@@ -26,7 +26,9 @@ Stalker.UserShowView = Ember.View.extend({
    */
 
   click: function(e) {
-    this.get('controller').send('openModal', 'userEdit', this.get('content'));
+    if(this.get('isEditable')) {
+      this.get('controller').send('openModal', 'userEdit', this.get('content'));
+    }
   }
 
 });
