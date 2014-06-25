@@ -2,5 +2,8 @@ language: node_js
 node_js:
   - 0.10
 
+services:
+  - redis
+
 env:
   - CONSUMER_KEY="nothing to see here" CONSUMER_SECRET="nothing to see here"
