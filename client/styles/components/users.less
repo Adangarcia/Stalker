@@ -23,7 +23,9 @@
 .user {
   padding: 10px;
   border: 1px solid @border;
-  background: #f9f9f9;
+  background: @userBackground;
+
+  &.lighten { background: lighten(@userBackground, 4%); }
 
   h4, h6 { color: @black; }
 
