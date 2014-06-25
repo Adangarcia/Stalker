@@ -31,7 +31,7 @@ module.exports = function(grunt) {
       },
       production: {
         options: {
-          yuicompress: true
+          compress: true
         },
         files: {
           'public/assets/stalker.css': 'client/styles/stalker.less'
@@ -92,12 +92,11 @@ module.exports = function(grunt) {
     // Uglify javascript source
     uglify: {
       production: {
-        src: [
-          '.tmp/stalker.js',
-          '.tmp/vendor.js',
-          '.tmp/templates.js'
-        ],
-        dest: 'public/assets'
+        files: {
+          'public/assets/vendor.js': '.tmp/vendor.js',
+          'public/assets/stalker.js': '.tmp/stalker.js',
+          'public/assets/templates.js': '.tmp/templates.js'
+        }
       }
     },
 
