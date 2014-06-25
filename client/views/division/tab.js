@@ -8,6 +8,7 @@ Stalker.DivisionTabView = Ember.View.extend({
   templateName: 'division/tab',
   classNames: ['tab'],
   classNameBindings: ['isActive:active'],
+  currentUserBinding: 'controller.currentUser',
 
   /**
    * Is the this active?
@@ -25,7 +26,9 @@ Stalker.DivisionTabView = Ember.View.extend({
    */
 
   doubleClick: function(e) {
-    this.get('controller').send('startEdit');
+    if(this.get('currentUser.isAdmin')) {
+      this.get('controller').send('startEdit');
+    }
 
     return false;
   },
