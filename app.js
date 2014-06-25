@@ -4,6 +4,7 @@ var lib = require('./lib'),
     express = require('express'),
     passport = require('passport'),
     flash = require('connect-flash'),
+    compress = require('compression'),
     bodyParser = require('body-parser'),
     controllers = require('./controllers'),
     cookieParser = require('cookie-parser'),
@@ -47,6 +48,7 @@ if(app.get('env') === 'production') {
   app.set('passport host', process.env.PASSPORT_HOST);
 
   // Configure middleware
+  app.use(compress());
   app.use(morgan('short'));
 }
 
