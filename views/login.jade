@@ -14,6 +14,10 @@ html(lang="en")
               a(href="/") Stalker
 
     main(role="main")
+      if flash.length
+        .alert-box.alert.text-center
+          = flash.join(', ')
+
       .row
         .large-6.medium-8.small-12.small-centered.large-centered.columns
           h1.logo-txssc TxSSC

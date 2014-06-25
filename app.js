@@ -3,6 +3,7 @@ var lib = require('./lib'),
     morgan = require('morgan'),
     express = require('express'),
     passport = require('passport'),
+    flash = require('connect-flash'),
     bodyParser = require('body-parser'),
     controllers = require('./controllers'),
     cookieParser = require('cookie-parser'),
@@ -60,6 +61,7 @@ lib.middleware.passport(app);
  */
 
 app.use(express.static(__dirname + '/public'));
+app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());

@@ -37,6 +37,7 @@ module.exports = {
 
   authenticate: passport.authenticate('txssc', {
     successRedirect: '/',
+    failureFlash: true,
     failureRedirect: '/login'
   })
 };
