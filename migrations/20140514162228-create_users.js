@@ -9,7 +9,7 @@ module.exports = {
 
       division_id: {
         type: Types.INTEGER,
-        allowNull: false
+        allowNull: true
       },
 
       name: {
@@ -46,8 +46,8 @@ module.exports = {
       },
 
       back: {
-        type: Types.STRING,
-        defaultValue: ''
+        type: Types.DATE,
+        defaultValue: null
       },
 
       token: {
