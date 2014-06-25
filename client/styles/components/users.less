@@ -28,10 +28,11 @@
     &:hover { box-shadow: 0 0 5px 1px @userHover; }
   }
 
-  .meta time {
+  .back {
     color: @ashGray;
     font-size: 12px;
     line-height: 50px;
+    text-align: right;
   }
 
   .name {
@@ -58,26 +59,11 @@
     }
   }
 
-  .details {
-    padding: 6px 4px 4px 4px;
-
-    h6 {
-      margin: 0;
-      font-size: 18px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .back {
-      text-align: right;
-
-      time {
-        color: @black;
-        font-size: 14px;
-        font-weight: 600;
-        font-style: italic;
-      }
-    }
+  .details h6 {
+    margin: 0;
+    font-size: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
