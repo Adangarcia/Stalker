@@ -9,5 +9,9 @@ Stalker.User = DS.Model.extend({
   division: DS.belongsTo('division', { async: true }),
 
   created_at: DS.attr('date'),
-  updated_at: DS.attr('date')
+  updated_at: DS.attr('date'),
+
+  isIn: function() {
+    return !!this.get('location').match(/^in$/i);
+  }.property('location')
 });
