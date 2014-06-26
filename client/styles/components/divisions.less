@@ -17,6 +17,7 @@
     position: relative;
     height: 28px;
     transition: background ease-in 0.1s;
+    background: @tabBackground;
 
     &:hover {
       color: @black;
@@ -24,8 +25,9 @@
     }
 
     &.active {
-      background: @currentTab;
-      border-bottom: 1px solid @currentTab;
+      border-bottom: 1px solid transparent;
+
+      &:hover { background: @tabBackground; }
     }
 
     a, input {
@@ -39,7 +41,7 @@
       margin: 0;
       border: none;
       height: auto;
-      background: @currentTab;
+      background: @tabBackground;
       box-shadow: none;
       padding-right: 20px;
 
