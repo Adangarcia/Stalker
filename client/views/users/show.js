@@ -6,7 +6,7 @@ Stalker.UserShowView = Ember.View.extend({
   tagName: 'section',
   classNames: ['user'],
   templateName: 'users/show',
-  classNameBindings: ['isEditable:editable', 'isIn:lighten'],
+  classNameBindings: ['isEditable:editable', 'isNotIn:highlight'],
   currentUserBinding: 'controller.currentUser',
 
   /**
@@ -27,9 +27,9 @@ Stalker.UserShowView = Ember.View.extend({
    * @return {Boolean}
    */
 
-  isIn: function() {
-    return !!this.get('content.location').match(/^in$/i);
-  }.property(),
+  isNotIn: function() {
+    return !this.get('content.location').match(/^in$/i);
+  }.property('content.location'),
 
   /**
    * Click handler for a user

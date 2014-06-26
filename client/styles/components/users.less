@@ -3,14 +3,15 @@
 // -----------------------------------
 
 .users {
-  padding: 0 10px;
+  background: transparent;
 
   p { margin-top: 10px; }
 
-  @media screen and (min-width: 600px) {
-    padding-top: 14px;
+  @media screen and (min-width: 640px) {
+    padding: 18px 14px 0;
     border: 1px solid @border;
     border-top: none;
+    background: @userBackground;
   }
 }
 
@@ -25,15 +26,15 @@
   border: 1px solid @border;
   background: @userBackground;
 
-  &.lighten { background: lighten(@userBackground, 4%); }
+  &.highlight { box-shadow: 0 0 2px red; }
 
   h4, h6 { color: @black; }
 
   &.editable {
     cursor: pointer;
-    transition: box-shadow ease-in 0.4s;
+    transition: box-shadow ease-in 0.2s;
 
-    &:hover { box-shadow: 0 0 5px 1px @userHover; }
+    &:hover { box-shadow: 0 0 4px 1px @userHover; }
   }
 
   .back {

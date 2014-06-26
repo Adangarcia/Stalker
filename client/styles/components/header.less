@@ -6,6 +6,9 @@ header {
   margin-bottom: 20px;
 
   .top-bar {
+    overflow: visible;
+
+    .title-area { float: left; }
     .divider { border-right: 1px solid @ashGray; }
 
     // background: #c0b0ae;
@@ -14,6 +17,34 @@ header {
     .logo:hover,
     section a:hover {
       background: linear-gradient(to bottom, lighten(@headerTop, 3%), lighten(@headerBottom, 3%)) !important;
+    }
+
+    .top-bar-section ul {
+      width: auto;
+
+      .has-dropdown > a { padding-right: 35px; }
+
+      li > a {
+        line-height: 45px;
+        padding: 0 15px;
+
+        &:after {
+          margin-top: -2.5px;
+          border-top-style: solid;
+          border-color: rgba(255, 255, 255, 0.4) transparent transparent transparent;
+        }
+      }
+
+      .has-dropdown:hover > .dropdown {
+        top: auto;
+        left: auto;
+        right: 0;
+        clip: auto;
+        width: auto;
+        min-width: 100%;
+        height: auto;
+        background: transparent;
+      }
     }
 
     .name .logo {

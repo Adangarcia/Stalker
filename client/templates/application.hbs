@@ -12,16 +12,24 @@
 
     <section class="top-bar-section">
       <ul class="right">
-        <li>
+        <li class="hide-for-small-only">
           <a {{action 'openModal' 'userEdit' currentUser}}>
             <i class="fa fa-paper-plane"></i> Set my status
           </a>
         </li>
-        <li class="divider"></li>
+        <li class="divider hide-for-small-only"></li>
         <li class="has-dropdown not-click">
           <a href="#">{{currentUser.name}}</a>
+
           <ul class="dropdown">
-            <li><a href="/auth/logout">Logout</a></li>
+            <li class="show-for-small-only">
+              <a {{action 'openModal' 'userEdit' currentUser}}>
+                <i class="fa fa-paper-plane"></i> Set my status
+              </a>
+            </li>
+            <li>
+              <a href="/auth/logout">Logout</a>
+            </li>
           </ul>
         </li>
       </ul>
