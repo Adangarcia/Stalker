@@ -4,6 +4,7 @@
 
 Stalker.DivisionTabsController = Ember.ArrayController.extend({
   activeTab: null,
+  displayingAll: false,
   sortAscending: true,
   sortProperties: ['name'],
 
@@ -21,8 +22,23 @@ Stalker.DivisionTabsController = Ember.ArrayController.extend({
         current.set('isActive', false);
       }
 
+      if(this.get('displayingAll')) {
+        this.set('displayingAll', false);
+      }
+
       tab.set('isActive', true);
       this.set('activeTab', tab);
+    },
+
+    setAllTab: function() {
+      var current = this.get('activeTab');
+
+      if(current) {
+        current.set('isActive', false);
+      }
+
+      this.set('activeTab', null);
+      this.set('displayingAll', true);
     }
   },
 

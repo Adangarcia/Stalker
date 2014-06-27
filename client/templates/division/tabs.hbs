@@ -1,6 +1,12 @@
 <div class="row hide-for-small-only">
   <div class="small-12 large-12 columns">
     <ul class="divisions clearfix">
+      <li data-view="all" {{action 'setAllTab'}}>
+        {{#link-to 'index'}}
+          All
+        {{/link-to}}
+      </li>
+
       {{#each itemController='divisionTab'}}
         {{view Stalker.DivisionTabView}}
       {{/each}}
