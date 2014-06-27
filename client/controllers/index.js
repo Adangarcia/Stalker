@@ -9,8 +9,8 @@
  */
 
 Stalker.IndexController = Ember.ArrayController.extend({
-  sortAscending: true,
-  sortProperties: ['isIn', 'name'],
+  sortAscending: false,
+  sortProperties: ['isIn', 'updated_at'],
 
   /**
    * Determine is there are users present
