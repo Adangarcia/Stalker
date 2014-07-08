@@ -3,6 +3,7 @@ var should = require('should'),
     app = require('../../../app'),
     models = require('../../../models'),
     sequelize = models.sequelize,
+    User = models.User,
     Division = models.Division;
 
 describe('`/api/divisions`', function() {
@@ -168,14 +169,22 @@ describe('`/api/divisions`', function() {
     });
 
     describe('`PUT`', function() {
-      var division;
+      var user, division;
 
       before(function(done) {
         Division.create({
           name: 'Galactic Empire'
-        }).complete(function(err, d) {
+        }).complete(function(e, d) {
           division = d;
-          return done(err);
+
+          User.create({
+            name: 'Queen Amidala',
+            username: 'amidala',
+            division_id: division.id
+          }).complete(function(err, u) {
+            user = u;
+            return done(e || err);
+          });
         });
       });
 
@@ -184,9 +193,23 @@ describe('`/api/divisions`', function() {
           .put('/api/divisions/' + division.id)
           .set('Content-Type', 'application/json')
           .set('Authorization', 'please')
-          .send({ division: { name: 'Admiral Ackbar' } })
+          .send({ division: { name: 'Imperial Empire' } })
           .expect(200)
           .end(done);
+      });
+
+      it('should return nested user ids', function(done) {
+        request(app)
+          .put('/api/divisions/' + division.id)
+          .set('Content-Type', 'application/json')
+          .set('Authorization', 'please')
+          .send({ division: { name: 'Imperial Empire' } })
+          .expect(200)
+          .end(function(err, res) {
+            res.body.division.should.have.property('users');
+            res.body.division.users.should.include(user.id);
+            return done(err);
+          });
       });
 
       it('should properly update attributes', function(done) {
@@ -194,9 +217,9 @@ describe('`/api/divisions`', function() {
           .put('/api/divisions/' + division.id)
           .set('Content-Type', 'application/json')
           .set('Authorization', 'please')
-          .send({ division: { name: 'Admiral Ackbar' } })
+          .send({ division: { name: 'Imperial Empire' } })
           .end(function(err, res) {
-            res.body.division.should.have.property('name', 'Admiral Ackbar');
+            res.body.division.should.have.property('name', 'Imperial Empire');
             return done(err);
           });
       });

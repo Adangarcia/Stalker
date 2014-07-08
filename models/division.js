@@ -55,6 +55,52 @@ module.exports = function(sequelize, Types) {
       }
     },
 
+    instanceMethods: {
+
+      /**
+       * Update the current record and return the division, with user ids
+       *
+       * Example:
+       *  {
+       *    id: 1,
+       *    name: 'Example',
+       *    created_at: 'Fri Jun 06 2014 18:20:43 GMT+0000 (UTC)',
+       *    updated_at: 'Fri Jun 06 2014 18:20:43 GMT+0000 (UTC)',
+       *    users: [1, 2]
+       *  }
+       *
+       * @param {sequelize.Model} User
+       * @param {Object} attrs
+       * @return {sequelize.Utils.CustomEventEmitter}
+       */
+
+      update: function(attrs) {
+        var self = this;
+
+        if(attrs.role !== undefined) {
+          delete attrs.role;
+        }
+
+        return new Emitter(function(emitter) {
+          self.updateAttributes(attrs).proxy(emitter, {
+            events: ['error']
+          }).success(function(division) {
+            division.getUsers({ attributes: ['id'] }).proxy(emitter, {
+              events: ['error']
+            }).success(function(users) {
+              async.map(users, function(user, done) {
+                return done(null, user.id);
+              }, function(err, users) {
+                division = division.toJSON();
+                division.users = users;
+                return emitter.emit('success', division);
+              });
+            });
+          });
+        }).run();
+      }
+    },
+
     classMethods: {
 
       /**
@@ -73,7 +119,7 @@ module.exports = function(sequelize, Types) {
        *
        * @param {Object} User - Here to only prevent a circular import on the User model
        * @param {Object} query
-       * @return {CustomEventEmitter}
+       * @return {sequelize.Utils.CustomEventEmitter}
        */
 
       all: function(User, query) {
