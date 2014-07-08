@@ -78,6 +78,11 @@ module.exports = {
       delete attrs.division;
     }
 
+    // No, you cant update your role
+    if(attrs.role !== undefined) {
+      delete attrs.role;
+    }
+
     user.updateAttributes(attrs).complete(function(err, user) {
       if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
       return res.json({ user: user });
