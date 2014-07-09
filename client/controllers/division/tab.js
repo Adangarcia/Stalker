@@ -15,12 +15,12 @@ Stalker.DivisionTabController = Ember.ObjectController.extend({
       var model = this.get('model');
 
       this.set('isEditing', false);
-
-      if(model.get('isDirty') &&
-        !model.get('isSaving') && model.get('name')) {
+      if(model.get('isDirty') && !model.get('isSaving') && model.get('name')) {
         model.save().catch(function() {
           model.rollback();
         });
+      } else {
+        model.rollback();
       }
     },
 
