@@ -116,7 +116,7 @@ module.exports = function(grunt) {
     // Watch task for development
     watch: {
       development: {
-        files: 'client/**',
+        files: ['client/**', '!client/.tmp/**'],
         tasks: ['development']
       }
     }
