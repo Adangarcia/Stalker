@@ -94,7 +94,7 @@ module.exports = {
       });
     }
 
-    division.updateAttributes(attrs).complete(function(err, division) {
+    division.update(attrs).complete(function(err, division) {
       if(err) return res.json(400, { errors: utils.normalizeErrors(err) });
       return res.json({ division: division });
     });
