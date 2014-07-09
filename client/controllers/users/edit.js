@@ -4,15 +4,14 @@
 
 Stalker.UserEditController = Ember.ObjectController.extend({
   pickerOpen: 0,
-  divisions: [],
-  selectedDivision: null,
+  divisions: null,
 
   actions: {
     closeModal: function() {
       var model = this.get('content'),
-          newDivision = this.get('selectedDivision');
+          setDivision = this.get('selectedDivision');
 
-      if(newDivision) {
+      if(setDivision && setDivision.get('id') !== model.get('division.id')) {
         // Ensure the has many is cleared on division
         if(model.get('division')) {
           model.get('division').then(function(division) {
@@ -20,15 +19,18 @@ Stalker.UserEditController = Ember.ObjectController.extend({
           });
         }
 
-        model.set('division', newDivision);
+        model.set('division', setDivision);
 
         // Ensure the has many association is added to the new division
-        newDivision.get('users').then(function(users) {
+        setDivision.get('users').then(function(users) {
           users.addObject(model);
         });
+
+        model.save();
+      } else if(model.get('isDirty')) {
+        model.save();
       }
 
-      model.save();
       this.set('pickerOpen', 0);
 
       return true;
@@ -48,6 +50,11 @@ Stalker.UserEditController = Ember.ObjectController.extend({
     }
   },
 
+  /**
+   * Get the current division set for user and
+   * assign it to `selectedDivision`
+   */
+
   getDivision: function() {
     var self = this,
         division = this.get('content.division');
@@ -56,6 +63,8 @@ Stalker.UserEditController = Ember.ObjectController.extend({
       division.then(function(division) {
         self.set('selectedDivision', division);
       });
+    } else {
+      this.set('selectedDivision', null);
     }
   }.observes('content.division'),
 

@@ -10,10 +10,10 @@
           <label>Division:
             {{view Ember.Select
               contentBinding='divisions'
+              selectionBinding='selectedDivision'
               prompt='Select division'
               optionValuePath='content.id'
               optionLabelPath='content.name'
-              selectionBinding='selectedDivision'
             }}
           </label>
         </div>
