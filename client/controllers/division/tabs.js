@@ -18,7 +18,7 @@ Stalker.DivisionTabsController = Ember.ArrayController.extend({
     setTab: function(tab) {
       var current = this.get('activeTab');
 
-      if(current) {
+      if(current && !current.get('isDestroyed')) {
         current.set('isActive', false);
       }
 
