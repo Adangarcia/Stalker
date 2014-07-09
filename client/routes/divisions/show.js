@@ -3,6 +3,12 @@
  */
 
 Stalker.DivisionsShowRoute = Ember.Route.extend({
+  actions: {
+    destroyTab: function() {
+      this.transitionTo('index');
+    }
+  },
+
   model: function(params) {
     var name = decodeURI(params.division_slug);
 

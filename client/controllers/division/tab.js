@@ -24,8 +24,11 @@ Stalker.DivisionTabController = Ember.ObjectController.extend({
       }
     },
 
-    destroy: function() {
+    destroyTab: function() {
       this.get('content').destroyRecord();
+      this.get('parentController').send('setAllTab');
+
+      return true; // bubble to route
     },
 
     changeTab: function() {
