@@ -10,9 +10,14 @@ Stalker.DivisionsShowRoute = Ember.Route.extend({
   },
 
   model: function(params) {
+    var self = this;
     var name = decodeURI(params.division_slug);
 
     return this.store.find('division', { name: name }).then(function(divisions) {
+      if(!divisions.get('length')) {
+        return self.transitionTo('divisions.404');
+      }
+
       return divisions.get('firstObject');
     });
   },
