@@ -25,8 +25,9 @@ Stalker.UserEditView = Ember.View.extend({
 
   didInsertElement: function() {
     var picker = this.$('[name="back"]').datetimepicker({
+      step: 15,
       minDate: 0,
-      format:'m/d/Y H:i',
+      format:'m/d/Y H:i'
       // allowTimes: [
       //   '7:00', '7:30', '8:00', '8:30', '9:00', '9:30', '10:00', '10:30',
       //   '11:00', '11:30', '12:00', '12:30', '1:00', '1:30', '2:00', '2:30',
