@@ -86,8 +86,19 @@ module.exports = function(sequelize, Types) {
         delete attrs.division_id;
 
         return attrs;
-      }
+      },
 
+      /**
+       * Serialize a user for session on the client
+       *
+       * @return {Object}
+       */
+
+      toSession: function() {
+        return utils.extend(this.toJSON(), {
+          token: this.values.token
+        });
+      }
     },
 
     classMethods: {

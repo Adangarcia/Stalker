@@ -14,7 +14,7 @@ module.exports = {
   index: function(req, res) {
     if(!req.user) return res.redirect('/login');
     return res.render('index', {
-      user: req.user
+      user: req.user.toSession()
     });
   },
 

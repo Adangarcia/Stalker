@@ -57,7 +57,11 @@
 
     initialize: function(container, application) {
       var store = container.lookup('store:main'),
-          attrs = JSON.parse($('meta[name="current-user"]').attr('content'));
+          attrs = JSON.parse($('meta[name="current-user"]').attr('content')),
+          token = attrs.token;
+
+      // Remove token from user object
+      delete attrs.token;
 
       // Add the current user to store with pushPayload in order to
       // run attributes through the serializer
@@ -77,7 +81,7 @@
       //
       // TODO: Make this less of a hack!
       container.lookup('adapter:application').set('headers', {
-        Authorization: attrs.token
+        Authorization: token
       });
     }
   });
