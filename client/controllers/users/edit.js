@@ -5,6 +5,7 @@
 Stalker.UserEditController = Ember.ObjectController.extend({
   pickerOpen: 0,
   divisions: null,
+  isAllViewed: true,
 
   actions: {
     closeModal: function() {
@@ -87,8 +88,8 @@ Stalker.UserEditController = Ember.ObjectController.extend({
    */
 
   isEditable: function() {
-    return this.get('currentUser.isAdmin');
-  }.property('currentUser.isAdmin'),
+    return this.get('currentUser.isAdmin') && this.get('isAllViewed');
+  }.property('currentUser.isAdmin', 'isAllViewed'),
 
   /**
    * Helpers for finding the active button

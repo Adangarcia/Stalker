@@ -4,6 +4,12 @@
 
 Stalker.DivisionsShowRoute = Ember.Route.extend({
   actions: {
+    openModal: function(modal) {
+      this.controllerFor(modal).set('isAllViewed', false);
+
+      return true;
+    },
+
     destroyTab: function() {
       this.transitionTo('index');
     }
