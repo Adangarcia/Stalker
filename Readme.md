@@ -2,9 +2,45 @@
 
 ## Installation
 
+Dependencies can be installed using npm (`npm install`). Client dependencies will need to be installed using bower, install bower globally using `npm install -g bower` and run `bower install`.
+
+## Building
+
+This project uses grunt, and both development and projection clients can be built with `grunt development` and `grunt production` respectably. 
+
+## Environment variables
+
+### STALKER_PORT
+#### default: `3000`
+Signifies which port the Stalker server should run on
+
+### API_TOKEN
+#### default: `please`
+Token that should be used when authenticating against the api in the case that a session or user auth token is not used.
+
+### SESSION_SECRET
+#### default: `dirty secret`
+Salt for hashing session cookies. Should just be a random crypto value.
+
+### CONSUMER_KEY
+OAuth2 provider consumer key, you will need this, or you're gonna have a bad time.
+
+### CONSUMER_SECRET
+OAuth2 provider secret, you will also need this, or you're gonna have a doubly bad time.
+
+## Running
+
+Currently Stalker uses the [TxSSC/SSO](https://github.com/TxSSC/SSO) project, which is internal only. It uses passport, so this could easily be substitued for another OAuth2 provider.
+
+To run you will need to get set the appropriate environment variables and run `npm start` or `node app`.
+
 ## Testing
 
 Stalker tests can be run with `npm test` or `make test`.
+
+## API
+
+(To be continued...)
 
 ## License (MIT)
 
