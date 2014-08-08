@@ -103,8 +103,8 @@ Stalker.UserEditController = Ember.ObjectController.extend({
     return this.isAt('out');
   }.property('location'),
 
-  isLunch: function() {
-    return this.isAt('lunch');
+  isUnavailable: function() {
+    return this.isAt('unavailable');
   }.property('location'),
 
   /**

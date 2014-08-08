@@ -12,6 +12,10 @@ Stalker.User = DS.Model.extend({
   updated_at: DS.attr('date'),
 
   isIn: function() {
-    return !!this.get('location').match(/^in$/i);
+    return !!this.get('location').match(/^in$/i) || this.get('isUnavailable');
+  }.property('location'),
+
+  isUnavailable: function() {
+    return !!this.get('location').match(/^unavaliable|meeting$/i);
   }.property('location')
 });

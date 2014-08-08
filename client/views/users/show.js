@@ -6,7 +6,11 @@ Stalker.UserShowView = Ember.View.extend({
   tagName: 'section',
   classNames: ['user'],
   templateName: 'users/show',
-  classNameBindings: ['isEditable:editable', 'isNotIn:highlight'],
+  classNameBindings: [
+    'isEditable:editable',
+    'isNotIn:red-highlight',
+    'isUnavailable:yellow-highlight',
+  ],
   currentUserBinding: 'controller.currentUser',
 
   /**
@@ -28,7 +32,17 @@ Stalker.UserShowView = Ember.View.extend({
    */
 
   isNotIn: function() {
-    return !this.get('content.location').match(/^in$/i);
+    return !this.get('content.location').match(/^in$/i) && !this.get('isUnavailable');
+  }.property('content.location'),
+
+  /**
+   * Is the user currently unavailable?
+   *
+   * @return {Boolean}
+   */
+
+  isUnavailable: function() {
+    return this.get('content.location').match(/^unavailable|meeting$/i);
   }.property('content.location'),
 
   /**
