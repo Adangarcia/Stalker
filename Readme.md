@@ -10,22 +10,22 @@ This project uses grunt, and both development and projection clients can be buil
 
 ## Environment variables
 
-### STALKER_PORT
-#### default: `3000`
+#### STALKER_PORT
+##### default: `3000`
 Signifies which port the Stalker server should run on
 
-### API_TOKEN
-#### default: `please`
+#### API_TOKEN
+##### default: `please`
 Token that should be used when authenticating against the api in the case that a session or user auth token is not used.
 
-### SESSION_SECRET
-#### default: `dirty secret`
+#### SESSION_SECRET
+##### default: `dirty secret`
 Salt for hashing session cookies. Should just be a random crypto value.
 
-### CONSUMER_KEY
+#### CONSUMER_KEY
 OAuth2 provider consumer key, you will need this, or you're gonna have a bad time.
 
-### CONSUMER_SECRET
+#### CONSUMER_SECRET
 OAuth2 provider secret, you will also need this, or you're gonna have a doubly bad time.
 
 ## Running
