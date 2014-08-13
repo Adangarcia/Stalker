@@ -16,6 +16,6 @@ Stalker.User = DS.Model.extend({
   }.property('location'),
 
   isUnavailable: function() {
-    return !!this.get('location').match(/^unavaliable|meeting$/i);
+    return !!this.get('location').match(/^unavaliable$/i);
   }.property('location')
 });

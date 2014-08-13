@@ -42,7 +42,7 @@ Stalker.UserShowView = Ember.View.extend({
    */
 
   isUnavailable: function() {
-    return this.get('content.location').match(/^unavailable|meeting$/i);
+    return this.get('content.location').match(/^unavailable$/i);
   }.property('content.location'),
 
   /**
