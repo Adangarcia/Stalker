@@ -144,6 +144,9 @@ module.exports = function(sequelize, Types) {
                     return emitter.emit('success', user);
                   });
               } else {
+                // Not interested in updating role
+                delete attrs.role;
+
                 user
                   .updateAttributes(attrs)
                   .proxy(emitter, { events: ['error'] })
