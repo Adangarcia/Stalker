@@ -27,7 +27,7 @@ Stalker.DivisionTabController = Ember.ObjectController.extend({
     destroyTab: function() {
       var d = window.confirm("Are you sure you want to delete this division?");
 
-      if(!d) {
+      if(d) {
         this.get('content').destroyRecord();
         this.get('parentController').send('setAllTab');
 
