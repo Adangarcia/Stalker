@@ -125,6 +125,7 @@ module.exports = function(sequelize, Types) {
         };
 
         // Update attributes
+        if(profile.role) attrs.role = profile.role;
         if(profile.avatar) attrs.avatar = profile.avatar;
         if(profile.displayName) attrs.name = profile.displayName;
 
