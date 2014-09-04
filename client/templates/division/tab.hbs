@@ -1,6 +1,6 @@
 {{#if isEditing}}
   {{focus-input value=name type='text'}}
-  <i class="fa fa-times destroy" {{action 'destroyTab'}}></i>
+  {{!-- <i class="fa fa-times destroy" {{action 'destroyTab'}}></i> --}}
 {{else}}
   {{#link-to 'divisions.show' this}}
     {{name}}
