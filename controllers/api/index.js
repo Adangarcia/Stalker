@@ -27,7 +27,9 @@ module.exports = function(app) {
         id = parts[1] ? parseInt(parts[1], 10) : null;
 
     // Token auth or admin
-    if(!req.user || req.user && req.user.role === 'admin') return next();
+    if(!req.user || req.user &&
+       (req.user.role === 'admin' ||
+       req.user.role === 'su')) return next();
 
     // A non-privileged request
     if(!req.method.match(/POST|PUT|DELETE/)) return next();
