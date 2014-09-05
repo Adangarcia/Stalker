@@ -34,6 +34,10 @@ describe('User', function() {
           user.location.should.equal('');
         });
 
+        it('should default `status` to `0`', function() {
+          user.status.should.equal(0);
+        });
+
         it('should default `back` to `null`', function() {
           should.equal(user.back, null);
         });
@@ -74,7 +78,7 @@ describe('User', function() {
 
         it('should return safe attributes', function() {
           attrs.should.have.properties('name', 'username', 'avatar',
-            'role', 'location', 'back');
+            'role', 'location', 'status', 'back');
         });
 
         it('should not return unsafe attributes', function() {

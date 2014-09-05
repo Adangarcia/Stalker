@@ -37,9 +37,23 @@ Stalker.UserEditController = Ember.ObjectController.extend({
       return true;
     },
 
-    setLocation: function(l) {
-      var model = this.get('content');
+    setStatus: function(s) {
+      var l,
+          model = this.get('content');
 
+      switch(s) {
+        case 0:
+          l = "Out";
+          break;
+        case 1:
+          l = "In";
+          break;
+        case 2:
+          l = "Unavailable";
+          break;
+      }
+
+      model.set('status', s);
       model.set('location', l);
       model.set('back', null);
       model.save();

@@ -45,6 +45,11 @@ module.exports = {
         defaultValue: ''
       },
 
+      status: {
+        type: Types.INTEGER,
+        defaultValue: 0
+      },
+
       back: {
         type: Types.DATE,
         defaultValue: null

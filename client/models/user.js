@@ -4,6 +4,7 @@ Stalker.User = DS.Model.extend({
   username: DS.attr('string'),
   avatar: DS.attr('string'),
   location: DS.attr('string'),
+  status: DS.attr('number'),
   back: DS.attr('date'),
 
   division: DS.belongsTo('division', { async: true }),
@@ -11,11 +12,16 @@ Stalker.User = DS.Model.extend({
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
 
+  isOut: function() {
+    return this.get('status') === 0;
+  }.property('status'),
+
   isIn: function() {
-    return !!this.get('location').match(/^in$/i) || this.get('isUnavailable');
-  }.property('location'),
+    return this.get('status') === 1;
+  }.property('status'),
 
   isUnavailable: function() {
-    return !!this.get('location').match(/^unavaliable$/i);
-  }.property('location')
+    return this.get('status') === 2;
+  }.property('status')
+
 });

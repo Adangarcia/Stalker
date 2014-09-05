@@ -14,7 +14,6 @@ Stalker.DivisionTabController = Ember.ObjectController.extend({
     stopEdit: function() {
       var model = this.get('model');
 
-      this.set('isEditing', false);
       if(model.get('isDirty') && !model.get('isSaving') && model.get('name')) {
         model.save().catch(function() {
           model.rollback();
@@ -22,6 +21,8 @@ Stalker.DivisionTabController = Ember.ObjectController.extend({
       } else {
         model.rollback();
       }
+
+      this.set('isEditing', false);
     },
 
     destroyTab: function() {
