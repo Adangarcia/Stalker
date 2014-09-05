@@ -7,8 +7,11 @@
 
 Stalker.IndexRoute = Ember.Route.extend({
   actions: {
-    openModal: function(modal) {
-      this.controllerFor(modal).set('isAllViewed', true);
+    openModal: function(modal, model) {
+      var controller = this.controllerFor(modal);
+
+      controller.set('content', model);
+      controller.set('isAllViewed', true);
 
       return true;
     }
