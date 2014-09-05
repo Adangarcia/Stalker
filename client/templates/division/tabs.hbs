@@ -11,7 +11,7 @@
         {{view Stalker.DivisionTabView}}
       {{/each}}
 
-      {{#if isAdmin}}
+      {{#if isSuperAdmin}}
         <li class="new"><a href="#" {{action 'add'}}><i class="fa fa-plus"></i></a></li>
       {{/if}}
     </ul>

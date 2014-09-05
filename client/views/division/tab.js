@@ -26,7 +26,7 @@ Stalker.DivisionTabView = Ember.View.extend({
    */
 
   doubleClick: function(e) {
-    if(this.get('currentUser.isAdmin')) {
+    if(this.get('currentUser.isSuperAdmin')) {
       this.get('controller').send('startEdit');
     }
 

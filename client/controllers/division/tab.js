@@ -43,14 +43,13 @@ Stalker.DivisionTabController = Ember.ObjectController.extend({
   },
 
   /**
-   * Return if the current user is an admin
-   *  - just passes this functionality to the `CurrentUserController`
+   * Return if the current user is a super duper admin
    *
    * @return {Boolean}
    */
 
-  isAdmin: function() {
-    return this.get('currentUser.isAdmin');
-  }.property('currentUser.isAdmin')
+  isSuperAdmin: function() {
+    return this.get('currentUser.isSuperAdmin');
+  }.property('currentUser.isSuperAdmin')
 
 });

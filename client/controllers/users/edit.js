@@ -87,37 +87,8 @@ Stalker.UserEditController = Ember.ObjectController.extend({
    * @return {Boolean}
    */
 
-  isEditable: function() {
-    return this.get('currentUser.isAdmin') && this.get('isAllViewed');
-  }.property('currentUser.isAdmin', 'isAllViewed'),
+  isDivisionEditable: function() {
+    return this.get('currentUser.isSuperAdmin') && this.get('isAllViewed');
+  }.property('currentUser.isSuperAdmin', 'isAllViewed'),
 
-  /**
-   * Helpers for finding the active button
-   */
-
-  isIn: function() {
-    return this.isAt('in');
-  }.property('location'),
-
-  isOut: function() {
-    return this.isAt('out');
-  }.property('location'),
-
-  isUnavailable: function() {
-    return this.isAt('unavailable');
-  }.property('location'),
-
-  /**
-   * Logic for providing a match for what
-   * button should be active
-   *
-   * @param {String} p
-   * @return {Boolean}
-   */
-
-  isAt: function(p) {
-    var matcher = new RegExp('^' + p + '$', 'i');
-
-    return matcher.test(this.get('location'));
-  }
 });
