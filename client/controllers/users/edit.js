@@ -38,8 +38,9 @@ Stalker.UserEditController = Ember.ObjectController.extend({
     },
 
     setStatus: function(s) {
-      var l,
-          model = this.get('content');
+      var l, c,
+          model = this.get('content'),
+          changed = model.changedAttributes();
 
       switch(s) {
         case 0:
@@ -53,8 +54,14 @@ Stalker.UserEditController = Ember.ObjectController.extend({
           break;
       }
 
+      if(!changed.location ||
+         model.get('location') === "In" ||
+         model.get('location') === "Out" ||
+         model.get('location') === "Unavailable") {
+        model.set('location', l);
+      }
+
       model.set('status', s);
-      model.set('location', l);
       model.set('back', null);
       model.save();
     },
