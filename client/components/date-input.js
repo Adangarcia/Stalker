@@ -22,7 +22,7 @@ Stalker.DateInputComponent = Ember.TextField.extend({
 
     if(!date) return null;
 
-    return date.getMonth() + '/' + date.getDay() + '/' +
+    return (date.getMonth() + 1) + '/' + date.getDate() + '/' +
       date.getFullYear() + ' ' + date.getHours() + ':' +
       (date.getMinutes() === 0 ? '00' : date.getMinutes());
   }.property()
