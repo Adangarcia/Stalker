@@ -83,6 +83,11 @@ module.exports = {
       delete attrs.role;
     }
 
+    // Run parseInt on last_edited_by id
+    if(attrs.last_edited_by !== undefined) {
+      attrs.last_edited_by = parseInt(attrs.last_edited_by, 10);
+    }
+
     user.updateAttributes(attrs).complete(function(err, user) {
       if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
       return res.json({ user: user });

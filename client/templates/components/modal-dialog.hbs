@@ -1,7 +1,9 @@
 <div class="reveal-modal small">
   {{yield}}
 
-  <label {{bindattr value=last_edited_by type='text' placeholder=''}}></label>
+  <div class="edited-by">
+    {{last_edited_by.name}}
+  </div>
   <a class="button tiny right" {{action 'close'}}>Close</a>
 </div>
 

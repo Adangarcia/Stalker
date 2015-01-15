@@ -4,7 +4,7 @@ module.exports = {
       'Users',
       'last_edited_by',
       {
-        type: Types.STRING,
+        type: Types.INTEGER,
         allowNull: true
     });
 
@@ -13,7 +13,7 @@ module.exports = {
 
   down: function(migration, Types, done) {
     migration.removeColumn('Users','last_edited_by');
-    
+
     return done();
   }
 };
