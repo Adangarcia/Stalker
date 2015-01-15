@@ -11,6 +11,7 @@ Stalker.User = DS.Model.extend({
 
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
+  last_edited_by: DS.attr('string'),
 
   isOut: function() {
     return this.get('status') === 0;

@@ -63,6 +63,7 @@ Stalker.UserEditController = Ember.ObjectController.extend({
 
       model.set('status', s);
       model.set('back', null);
+      model.set('last_edited_by', this.get('currentUser.name'));
       model.save();
     },
 
