@@ -143,14 +143,14 @@ module.exports = function(sequelize, Types) {
           User
             .find({ where: { username: profile.username } })
             .proxy(emitter, { events: ['error'] })
-            .success(function(user) {
+            .then(function(user) {
               if(!user) {
                 attrs.username = profile.username;
 
                 User
                   .create(attrs)
                   .proxy(emitter, { events: ['error'] })
-                  .success(function(user) {
+                  .then(function(user) {
                     return emitter.emit('success', user);
                   });
               } else {
@@ -160,7 +160,7 @@ module.exports = function(sequelize, Types) {
                 user
                   .updateAttributes(attrs)
                   .proxy(emitter, { events: ['error'] })
-                  .success(function(user) {
+                  .then(function(user) {
                     return emitter.emit('success', user);
                   });
               }

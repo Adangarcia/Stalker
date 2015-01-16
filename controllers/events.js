@@ -160,7 +160,7 @@ module.exports = function(req, res) {
  */
 
 function sendEvent(type) {
-  return function(model, next) {
+  return function(model, options, next) {
     sockets.send(type, model);
 
     return next(null, model);

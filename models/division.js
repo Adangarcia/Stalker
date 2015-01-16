@@ -84,10 +84,10 @@ module.exports = function(sequelize, Types) {
         return new Emitter(function(emitter) {
           self.updateAttributes(attrs).proxy(emitter, {
             events: ['error']
-          }).success(function(division) {
+          }).then(function(division) {
             division.getUsers({ attributes: ['id'] }).proxy(emitter, {
               events: ['error']
-            }).success(function(users) {
+            }).then(function(users) {
               async.map(users, function(user, done) {
                 return done(null, user.id);
               }, function(err, users) {
@@ -132,7 +132,7 @@ module.exports = function(sequelize, Types) {
               model: User,
               attributes: ['id']
             }]
-          }).proxy(emitter, { events: ['error'] }).success(function(divisions) {
+          }).proxy(emitter, { events: ['error'] }).then(function(divisions) {
             async.map(divisions, function(division, done) {
               var d = division.toJSON();
 
