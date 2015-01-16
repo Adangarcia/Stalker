@@ -17,8 +17,8 @@ module.exports = function(sequelize, Types) {
     name: {
       type: Types.STRING,
       unique: true,
+      allowNull: false,
       validate: {
-        notNull: true,
         notEmpty: true,
         isUnique: function(name, next) {
           var self = this;
@@ -136,8 +136,8 @@ module.exports = function(sequelize, Types) {
             async.map(divisions, function(division, done) {
               var d = division.toJSON();
 
-              if(d.users) {
-                d.users = division.users.map(function(u) {
+              if(d.Users) {
+                d.users = division.Users.map(function(u) {
                   return u.id;
                 });
               }
