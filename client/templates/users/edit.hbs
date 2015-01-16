@@ -1,6 +1,10 @@
 {{#modal-dialog action="closeModal"}}
-  {{#if isAdmin}}
-    <p>Admin stuff here</p>
+  {{#if isNotEditingSelf}}
+    <div class="row">
+      <div class="large-12 columns">
+        <h4>Editing: {{name}}</h4>
+      </div>
+    </div>
   {{/if}}
 
   <form>

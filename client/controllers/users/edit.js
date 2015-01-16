@@ -115,4 +115,14 @@ Stalker.UserEditController = Ember.ObjectController.extend({
     return this.get('currentUser.isSuperAdmin') && this.get('isAllViewed');
   }.property('currentUser.isSuperAdmin', 'isAllViewed'),
 
+  /**
+   * Returns `true` if the user is not editing themself
+   *
+   * @return {Boolean}
+   */
+
+  isNotEditingSelf: function() {
+    return this.get('content.id') !== this.get('currentUser.id');
+  }.property('content.id', 'currentUser.id')
+
 });
