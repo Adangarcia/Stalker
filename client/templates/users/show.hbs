@@ -1,4 +1,11 @@
 <div class="row meta">
+  {{#if isEditedByViewable}}
+    <div class="edited-by">
+      {{timeago updated_at}} by:
+      <span>{{last_edited_by.name}}</span>
+    </div>
+  {{/if}}
+
   <div class="small-3 medium-2 large-2 columns">
     <div class="avatar">
       <img {{bind-attr src=avatar}} {{bind-attr alt=name}} />

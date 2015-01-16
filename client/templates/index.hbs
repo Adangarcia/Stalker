@@ -3,7 +3,7 @@
     <div class="users">
       {{#if hasUsers}}
         <ul class="small-block-grid-1 large-block-grid-2">
-          {{#each}}
+          {{#each itemController="user_show"}}
             <li>
               {{view Stalker.UserShowView contentBinding='this'}}
             </li>

@@ -45,6 +45,11 @@ module.exports = function(sequelize, Types) {
       defaultValue: '/assets/images/lime-cat.jpg'
     },
 
+    last_edited_by: {
+      type: Types.INTEGER,
+      defaultValue: null
+    },
+
     active: {
       type: Types.BOOLEAN,
       allowNull: false,
