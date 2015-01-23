@@ -29,6 +29,7 @@ Stalker.UserEditController = Ember.ObjectController.extend({
 
         model.save();
       } else if(model.get('isDirty')) {
+        model.set('last_edited_by', this.get('currentUser.content');
         model.save();
       }
 
