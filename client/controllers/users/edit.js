@@ -6,6 +6,7 @@ Stalker.UserEditController = Ember.ObjectController.extend({
   pickerOpen: 0,
   divisions: null,
   isAllViewed: true,
+  disabledLocationInput: true,
 
   actions: {
     closeModal: function() {
@@ -33,6 +34,7 @@ Stalker.UserEditController = Ember.ObjectController.extend({
         model.save();
       }
 
+      this.set('disabledLocationInput', true);
       this.set('pickerOpen', 0);
 
       return true;
@@ -61,6 +63,8 @@ Stalker.UserEditController = Ember.ObjectController.extend({
          model.get('location') === "Unavailable") {
         model.set('location', l);
       }
+
+      this.set('disabledLocationInput', false);
 
       model.set('status', s);
       model.set('back', null);
