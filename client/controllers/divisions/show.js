@@ -22,8 +22,8 @@ Stalker.DivisionsShowController = Ember.ObjectController.extend({
 
   users: function() {
     return Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
-      sortAscending: false,
-      sortProperties: ['isIn', 'isUnavailable', 'updated_at'],
+      sortAscending: true,
+      sortProperties: ['isOut', 'isUnavailable', 'name'],
       content: this.get('content.users')
     });
   }.property('content.users')
