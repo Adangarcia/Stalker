@@ -22,13 +22,11 @@ Stalker.IndexController = Ember.ArrayController.extend({
     return this.get('length') > 0;
   }.property('length'),
 
-  actions: {
-    toggleSort: function() {
-      if (this.sortProperties[2] === 'updated_at')
-        this.sortProperties[2] = 'name';
-      else
-        this.sortProperties[2] = 'updated_at';
-    }
+  toggleSort: function() {
+    if (this.sortProperties[2] === 'updated_at')
+      this.sortProperties[2] = 'name';
+    else
+      this.sortProperties[2] = 'updated_at';
   }
 
 });
