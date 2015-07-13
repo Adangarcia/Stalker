@@ -85,6 +85,22 @@ describe('User', function() {
           attrs.should.not.have.properties('token', 'active');
         });
       });
+
+      describe('`toSession()`', function() {
+        var attrs;
+
+        before(function() {
+          attrs = user.toSession();
+        });
+
+        it('should return `toJSON()` attributes', function() {
+          attrs.should.containEql(user.toJSON());
+        });
+
+        it('should include unsafe attributes, `token`', function() {
+          attrs.should.have.properties('token');
+        });
+      });
     });
   });
 
