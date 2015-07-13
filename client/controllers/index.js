@@ -20,6 +20,20 @@ Stalker.IndexController = Ember.ArrayController.extend({
 
   hasUsers: function() {
     return this.get('length') > 0;
-  }.property('length')
+  }.property('length'),
+
+  actions: {
+    toggleSort: function() {
+      console.log('test');
+      if (this.sortProperties[2] === 'updated_at') {
+        this.set('sortProperties', ['isOut', 'isUnavailable', 'name']);
+        this.set('sortAscending', true);
+      }
+      else {
+        this.set('sortProperties', ['isIn', 'isUnavailable', 'updated_at']);
+        this.set('sortAscending', false);
+      }
+    }
+  }
 
 });
