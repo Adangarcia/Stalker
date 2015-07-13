@@ -37,7 +37,8 @@ module.exports = function(app) {
     // User is editing themself
     if(type === 'users' && id === req.user.id) return next();
 
-    return res.json(403, { error: 'unauthorized' });
+    res.status(403);
+    res.json({ error: 'unauthorized' });
   }
 
   /**

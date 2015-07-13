@@ -87,7 +87,7 @@ module.exports = function(sequelize, Types) {
        */
 
       toJSON: function() {
-        var attrs = utils.clone(this.values);
+        var attrs = utils.clone(this.get());
 
         attrs.division = attrs.division_id;
 
@@ -106,7 +106,7 @@ module.exports = function(sequelize, Types) {
 
       toSession: function() {
         return utils.extend(this.toJSON(), {
-          token: this.values.token
+          token: this.get("token")
         });
       }
     },

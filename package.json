@@ -11,7 +11,7 @@
     "connect-flash": "^0.1.1",
     "connect-redis": "^2.0.0",
     "cookie-parser": "^1.1.0",
-    "ember-template-compiler": "^1.6.0",
+    "ember-template-compiler": "~1.8.0",
     "express": "^4.0.0",
     "express-session": "^1.2.1",
     "grunt": "^0.4.5",
@@ -32,7 +32,7 @@
     "passport": "^0.2.0",
     "passport-txssc": "^0.1.1",
     "pg": "^3.3.0",
-    "sequelize": "^2.0.0-dev11"
+    "sequelize": "~2.0.0"
   },
   "devDependencies": {
     "mocha": "^1.18.2",

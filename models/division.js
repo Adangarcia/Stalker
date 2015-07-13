@@ -43,12 +43,11 @@ module.exports = function(sequelize, Types) {
        * @param {Function} done
        */
 
-      beforeDestroy: function(model, done) {
+      beforeDestroy: function(model, options, done) {
         model.getUsers().complete(function(err, users) {
           async.each(users, function(user, next) {
             user.setDivision(null).complete(next);
-          },
-          function(err) {
+          }, function(err) {
             return done(null, model);
           });
         });

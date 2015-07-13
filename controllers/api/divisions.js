@@ -19,11 +19,23 @@ module.exports = {
 
   param: function(req, res, next, id) {
     Division.find(id).complete(function(err, division) {
-      if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
-      if(!division) return res.json(404, { errors: ['not found'] });
+      if(err) {
+        res.status(500);
+        res.json({ errors: utils.normalizeErrors(err) });
+
+        return;
+      }
+
+      if(!division) {
+        res.status(404);
+        res.json({ errors: ['not found'] });
+
+        return;
+      }
 
       req.data = req.data || {};
       req.data.division = division;
+
       return next();
     });
   },
@@ -37,8 +49,14 @@ module.exports = {
 
   index: function(req, res) {
     Division.all(User, req.query).complete(function(err, divisions) {
-      if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
-      return res.json(200, { divisions: divisions });
+      if(err) {
+        res.status(500);
+        res.json({ errors: utils.normalizeErrors(err) });
+
+        return;
+      }
+
+      res.json({ divisions: divisions });
     });
   },
 
@@ -53,14 +71,24 @@ module.exports = {
     var attrs = req.body.division;
 
     if(attrs === undefined || attrs === null) {
-      return res.json(422, {
+      res.status(422);
+      res.json({
         errors: ['invalid division']
       });
+
+      return;
     }
 
     Division.create(attrs).complete(function(err, division) {
-      if(err) return res.json(400, { errors: utils.normalizeErrors(err) });
-      return res.json(201, { division: division });
+      if(err) {
+        res.status(400);
+        res.json({ errors: utils.normalizeErrors(err) });
+
+        return;
+      }
+
+      res.status(201);
+      res.json({ division: division });
     });
   },
 
@@ -89,14 +117,23 @@ module.exports = {
         attrs = req.body.division;
 
     if(attrs === undefined || attrs === null) {
-      return res.json(422, {
+      res.status(422);
+      res.json({
         errors: ['invalid division']
       });
+
+      return;
     }
 
     division.update(attrs).complete(function(err, division) {
-      if(err) return res.json(400, { errors: utils.normalizeErrors(err) });
-      return res.json({ division: division });
+      if(err) {
+        res.status(400);
+        res.json({ errors: utils.normalizeErrors(err) });
+
+        return;
+      }
+
+      res.json({ division: division });
     });
   },
 
@@ -111,8 +148,14 @@ module.exports = {
     var division = req.data.division;
 
     division.destroy().complete(function(err) {
-      if(err) return res.json(500, { errors: utils.normalizeErrors(err) });
-      return res.send(204);
+      if(err) {
+        res.status(500);
+        res.json({ errors: utils.normalizeErrors(err) });
+
+        return;
+      }
+
+      return res.sendStatus(204);
     });
   }
 

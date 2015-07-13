@@ -66,7 +66,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(cookieParser());
-app.use(expressSession({ secret: app.get('session secret'), store: new Store() }));
+app.use(expressSession({
+  resave: false,
+  saveUninitialized: false,
+  secret: app.get('session secret'),
+  store: new Store()
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api|\//', lib.middleware.authenticate(app));
