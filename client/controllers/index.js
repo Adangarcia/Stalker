@@ -24,7 +24,6 @@ Stalker.IndexController = Ember.ArrayController.extend({
 
   actions: {
     toggleSort: function() {
-      console.log('test');
       if (this.sortProperties[2] === 'updated_at') {
         this.set('sortProperties', ['isOut', 'isUnavailable', 'name']);
         this.set('sortAscending', true);
