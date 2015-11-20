@@ -4,6 +4,12 @@
       {{timeago updated_at}} by:
       <span>{{last_edited_by.name}}</span>
     </div>
+
+    <div class="controls">
+      <a {{action "destroyUser"}}>
+        <i class="fa fa-times"></i>
+      </a>
+    </div>
   {{/if}}
 
   <div class="small-3 medium-2 large-2 columns">
