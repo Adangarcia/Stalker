@@ -42,7 +42,7 @@ module.exports = function(sequelize, Types) {
 
     avatar: {
       type: Types.STRING,
-      defaultValue: '/assets/images/lime-cat.jpg'
+      defaultValue: 'http://avatars.txssc.com/default.png'
     },
 
     last_edited_by: {
